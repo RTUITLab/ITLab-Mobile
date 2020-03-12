@@ -338,3 +338,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/ITLab-Mobile/ITLab-Mobile/Data/appsettings.json

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ITLab_Mobile.Views.LoginPage"
+             Padding="10,40,10,0"
+             Title="{Binding Title}">
+
+    <StackLayout>
+        <Label Text="Логин"/>
+        <Entry x:Name="entLogin"
+               Placeholder="example@infobox.ru"
+               Margin="0,0,0,10"
+               WidthRequest="250"
+               Text="{Binding Login, Mode=OneWayToSource}"/>
+        <Label Text="Пароль"/>
+        <Entry x:Name="entPassword"
+               IsPassword="True"
+               Placeholder="super_hard_password_2"
+               WidthRequest="250"
+               Text="{Binding Password, Mode=OneWayToSource}"/>
+        <Button x:Name="btnLogin"
+                Text="Войти"
+                WidthRequest="250"
+                Command="{Binding LoginCommand}"/>
+        <ActivityIndicator x:Name="indicator"
+                           Color="Blue"
+                           IsRunning="{Binding IsBusy, Mode=OneWay}"/>
+    </StackLayout>
+
+</ContentPage>

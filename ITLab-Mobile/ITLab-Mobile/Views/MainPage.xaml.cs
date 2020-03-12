@@ -13,6 +13,12 @@ namespace ITLab_Mobile.Views
         public MainPage()
         {
             InitializeComponent();
+            MakeLogin();
+        }
+
+        private async void MakeLogin()
+        {
+            await Navigation.PushModalAsync(new LoginPage());
         }
     }
 }
