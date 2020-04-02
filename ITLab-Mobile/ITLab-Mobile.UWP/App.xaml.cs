@@ -53,6 +53,8 @@ namespace ITLab_Mobile.UWP
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 Xamarin.Forms.Forms.Init(e);
+                
+                Xamarin.Forms.DependencyService.Register<WabBrowser>();
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
