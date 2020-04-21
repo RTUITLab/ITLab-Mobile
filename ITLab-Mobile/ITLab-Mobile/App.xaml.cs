@@ -1,7 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using ITLab_Mobile.Services;
+﻿using Xamarin.Forms;
 using ITLab_Mobile.Views;
 
 namespace ITLab_Mobile
@@ -13,7 +10,6 @@ namespace ITLab_Mobile
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
             MainPage = new MainPage();
         }
 

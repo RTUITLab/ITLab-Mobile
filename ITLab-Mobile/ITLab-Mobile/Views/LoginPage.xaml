@@ -9,20 +9,8 @@
              Title="{Binding Title}">
 
     <StackLayout>
-        <Label Text="Логин"/>
-        <Entry x:Name="entLogin"
-               Placeholder="example@infobox.ru"
-               Margin="0,0,0,10"
-               WidthRequest="250"
-               Text="{Binding Login, Mode=OneWayToSource}"/>
-        <Label Text="Пароль"/>
-        <Entry x:Name="entPassword"
-               IsPassword="True"
-               Placeholder="super_hard_password_2"
-               WidthRequest="250"
-               Text="{Binding Password, Mode=OneWayToSource}"/>
         <Button x:Name="btnLogin"
-                Text="Войти"
+                Text="Нажмите, чтобы войти"
                 WidthRequest="250"
                 Command="{Binding LoginCommand}"/>
         <ActivityIndicator x:Name="indicator"

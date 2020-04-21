@@ -1,5 +1,11 @@
-﻿using Plugin.Settings;
+﻿using ITLab_Mobile.Models.Options;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Plugin.Settings;
 using Plugin.Settings.Abstractions;
+using System.IO;
+using System.Net.Http;
+using System.Reflection;
 
 namespace ITLab_Mobile.Services
 {
@@ -60,6 +66,41 @@ namespace ITLab_Mobile.Services
             set
             {
                 AppSettings.AddOrUpdateValue(RefreshTokenKey, value);
+            }
+        }
+
+        public static DelegatingHandler RefreshTokenHandler { get; set; }
+
+        private static string GetOptionFromAppsettings(string optionName)
+        {
+            var assembly = typeof(HttpClientFactory).GetTypeInfo().Assembly;
+            string raw_json = "";
+            Stream stream = assembly.GetManifestResourceStream($"{assembly.GetName().Name}.Data.appsettings.json");
+            using (var reader = new StreamReader(stream))
+            {
+                raw_json = reader.ReadToEnd();
+            }
+            JObject appsettingsFile = JObject.Parse(raw_json);
+            return appsettingsFile[optionName].ToString();
+        }
+
+        public static ApiOptions ApiOptions
+        {
+            get
+            {
+                return JsonConvert.DeserializeObject<ApiOptions>(
+                    GetOptionFromAppsettings(nameof(Models.Options.ApiOptions))
+                );
+            }
+        }
+
+        public static IdentityOptions IdentityOptions
+        {
+            get
+            {
+                return JsonConvert.DeserializeObject<IdentityOptions>(
+                    GetOptionFromAppsettings(nameof(Models.Options.IdentityOptions))
+                );
             }
         }
     }

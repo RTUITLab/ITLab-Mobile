@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using IdentityModel.OidcClient;
 using IdentityModel.OidcClient.Browser;
 using ITLab_Mobile.Services;
+using ITLab_Mobile.Models.Options;
 
 namespace ITLab_Mobile.ViewModels
 {
@@ -15,14 +15,16 @@ namespace ITLab_Mobile.ViewModels
         public string Login { get; set; }
         public string Password { get; set; }
 
-        public LoginViewModel()
+        public LoginViewModel(INavigation navigation)
         {
             Title = "Login";
 
             LoginCommand = new Command(async () => await MakeLogin());
+            this.navigation = navigation;
         }
 
         OidcClient OidcClient;
+        private readonly INavigation navigation;
 
         async Task MakeLogin()
         {   
@@ -35,18 +37,32 @@ namespace ITLab_Mobile.ViewModels
             {
                 var browser = DependencyService.Get<IBrowser>();
 
+                IdentityOptions identityOptions = Settings.IdentityOptions;
+
                 OidcClient = new OidcClient(new OidcClientOptions
                 {
-                    Authority = "https://dev.identity.rtuitlab.ru",
-                    ClientId = "interactive.public",
-                    Scope = "openid profile email api offline_access",
-                    RedirectUri = "xamarinformsclients://callback",
-                    Browser = browser,
+                    Authority = identityOptions.Authority,
+                    ClientId = identityOptions.ClientId,
+                    ClientSecret = identityOptions.ClientSecret,
+                    Scope = identityOptions.Scope,
+                    RedirectUri = identityOptions.RedirectUri,
 
-                    ResponseMode = OidcClientOptions.AuthorizeResponseMode.Redirect
+                    ResponseMode = OidcClientOptions.AuthorizeResponseMode.Redirect,
+                    Flow = OidcClientOptions.AuthenticationFlow.Hybrid,
+
+                    Browser = browser
                 });
+                
 
                 var request = await OidcClient.LoginAsync(new LoginRequest());
+
+                // to implement it in http client factory
+                Settings.RefreshTokenHandler = request.RefreshTokenHandler;
+
+                // var a = request.RefreshTokenHandler;
+                // a.InnerHandler = new HttpClientHandler();
+                // var client = new HttpClient(a);
+                // var respones = await client.GetStringAsync("https://dev.rtuitlab.ru/api/event/?begin=2020-04-02T14:16:19");
 
                 if (request.IsError)
                 {
@@ -54,23 +70,9 @@ namespace ITLab_Mobile.ViewModels
                     return;
                 }
 
-                var sb = new StringBuilder(128);
-                foreach (var claim in request.User.Claims)
-                {
-                    sb.AppendFormat("{0}: {1}\n", claim.Type, claim.Value);
-                }
-
-                sb.AppendFormat("\n{0}: {1}\n", "refresh token", request?.RefreshToken ?? "none");
-                sb.AppendFormat("\n{0}: {1}\n", "access token", request.AccessToken);
-
-                Debug.WriteLine(sb.ToString());
-
-                Settings.AccessToken = request.AccessToken;
-                Settings.RefreshToken = request.RefreshToken;
-
-                //Debug.WriteLine(Login);
-                //Debug.WriteLine(Password);
-                //Thread.Sleep(3000);
+                //Settings.AccessToken = request.AccessToken;
+                //Settings.RefreshToken = request.RefreshToken;
+                await navigation.PopModalAsync();
             }
             catch (Exception ex)
             {
