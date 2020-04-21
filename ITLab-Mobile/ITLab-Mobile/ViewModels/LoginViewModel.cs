@@ -3,9 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using IdentityModel.OidcClient;
-using IdentityModel.OidcClient.Browser;
 using ITLab_Mobile.Services;
-using ITLab_Mobile.Models.Options;
 
 namespace ITLab_Mobile.ViewModels
 {
@@ -35,29 +33,11 @@ namespace ITLab_Mobile.ViewModels
             
             try
             {
-                var browser = DependencyService.Get<IBrowser>();
-
-                IdentityOptions identityOptions = Settings.IdentityOptions;
-
-                OidcClient = new OidcClient(new OidcClientOptions
-                {
-                    Authority = identityOptions.Authority,
-                    ClientId = identityOptions.ClientId,
-                    ClientSecret = identityOptions.ClientSecret,
-                    Scope = identityOptions.Scope,
-                    RedirectUri = identityOptions.RedirectUri,
-
-                    ResponseMode = OidcClientOptions.AuthorizeResponseMode.Redirect,
-                    Flow = OidcClientOptions.AuthenticationFlow.Hybrid,
-
-                    Browser = browser
-                });
-                
+                OidcClient = Settings.OidcClient;
 
                 var request = await OidcClient.LoginAsync(new LoginRequest());
-
-                // to implement it in http client factory
-                Settings.RefreshTokenHandler = request.RefreshTokenHandler;
+                Settings.AccessToken = request.AccessToken;
+                Settings.RefreshToken = request.RefreshToken;
 
                 // var a = request.RefreshTokenHandler;
                 // a.InnerHandler = new HttpClientHandler();
@@ -70,8 +50,6 @@ namespace ITLab_Mobile.ViewModels
                     return;
                 }
 
-                //Settings.AccessToken = request.AccessToken;
-                //Settings.RefreshToken = request.RefreshToken;
                 await navigation.PopModalAsync();
             }
             catch (Exception ex)

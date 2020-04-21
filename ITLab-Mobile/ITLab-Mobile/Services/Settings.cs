@@ -1,4 +1,6 @@
-﻿using ITLab_Mobile.Models.Options;
+﻿using IdentityModel.OidcClient;
+using IdentityModel.OidcClient.Browser;
+using ITLab_Mobile.Models.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Plugin.Settings;
@@ -6,6 +8,7 @@ using Plugin.Settings.Abstractions;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
+using Xamarin.Forms;
 
 namespace ITLab_Mobile.Services
 {
@@ -69,13 +72,11 @@ namespace ITLab_Mobile.Services
             }
         }
 
-        public static DelegatingHandler RefreshTokenHandler { get; set; }
-
         private static string GetOptionFromAppsettings(string optionName)
         {
             var assembly = typeof(HttpClientFactory).GetTypeInfo().Assembly;
             string raw_json = "";
-            Stream stream = assembly.GetManifestResourceStream($"{assembly.GetName().Name}.Data.appsettings.json");
+            Stream stream = assembly.GetManifestResourceStream($"{assembly.GetName().Name.Replace("_", "-")}.Data.appsettings.json");
             using (var reader = new StreamReader(stream))
             {
                 raw_json = reader.ReadToEnd();
@@ -94,12 +95,39 @@ namespace ITLab_Mobile.Services
             }
         }
 
-        public static IdentityOptions IdentityOptions
+        public static OidcClient OidcClient
         {
             get
             {
-                return JsonConvert.DeserializeObject<IdentityOptions>(
-                    GetOptionFromAppsettings(nameof(Models.Options.IdentityOptions))
+                var identityOptions = JsonConvert.DeserializeObject<IdentityOptions>(
+                    GetOptionFromAppsettings(nameof(IdentityOptions))
+                );
+                var browser = DependencyService.Get<IBrowser>();
+                return new OidcClient(new OidcClientOptions
+                {
+                    Authority = identityOptions.Authority,
+                    ClientId = identityOptions.ClientId,
+                    ClientSecret = identityOptions.ClientSecret,
+                    Scope = identityOptions.Scope,
+                    RedirectUri = identityOptions.RedirectUri,
+
+                    ResponseMode = OidcClientOptions.AuthorizeResponseMode.Redirect,
+                    Flow = OidcClientOptions.AuthenticationFlow.Hybrid,
+
+                    Browser = browser
+                });
+            }
+        }
+
+        public static RefreshTokenDelegatingHandler RefreshTokenDelegatingHandler
+        {
+            get
+            {
+                return new RefreshTokenDelegatingHandler(
+                    oidcClient: OidcClient,
+                    accessToken: AccessToken,
+                    refreshToken: RefreshToken,
+                    innerHandler: new HttpClientHandler()
                 );
             }
         }

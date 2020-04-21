@@ -10,11 +10,7 @@ namespace ITLab_Mobile.Services
         
         private static HttpClient CreateHttpClient()
         {
-
-            var refreshTokenHandler = Settings.RefreshTokenHandler;
-            refreshTokenHandler.InnerHandler = new HttpClientHandler();
-
-            var httpClient = new HttpClient(refreshTokenHandler);
+            var httpClient = new HttpClient(Settings.RefreshTokenDelegatingHandler);
 
             httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent());
             httpClient.BaseAddress = new Uri(Settings.ApiOptions.BaseUrl);

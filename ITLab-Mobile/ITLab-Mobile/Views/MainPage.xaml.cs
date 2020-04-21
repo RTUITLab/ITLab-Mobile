@@ -1,7 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms.Xaml;
+using TabbedPage = Xamarin.Forms.TabbedPage;
 
 namespace ITLab_Mobile.Views
 {
@@ -13,7 +16,10 @@ namespace ITLab_Mobile.Views
         public MainPage()
         {
             InitializeComponent();
-            MakeLogin();
+
+            On<Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
+
+            // MakeLogin();
         }
 
         private async void MakeLogin()
