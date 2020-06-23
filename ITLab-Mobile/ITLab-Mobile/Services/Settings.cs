@@ -76,7 +76,7 @@ namespace ITLab_Mobile.Services
         {
             var assembly = typeof(HttpClientFactory).GetTypeInfo().Assembly;
             string raw_json = "";
-            Stream stream = assembly.GetManifestResourceStream($"{assembly.GetName().Name.Replace("_", "-")}.Data.appsettings.json");
+            Stream stream = assembly.GetManifestResourceStream($"{assembly.GetName().Name}.Data.appsettings.json");
             using (var reader = new StreamReader(stream))
             {
                 raw_json = reader.ReadToEnd();

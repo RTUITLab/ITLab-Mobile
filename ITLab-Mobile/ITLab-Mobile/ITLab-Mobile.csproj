@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
-    <RootNamespace>ITLab-Mobile</RootNamespace>
+    <RootNamespace>ITLab_Mobile</RootNamespace>
     <AssemblyName>ITLab_Mobile</AssemblyName>
   </PropertyGroup>
 
@@ -24,13 +24,24 @@
     <PackageReference Include="IdentityModel.OidcClient" Version="3.1.2" />
     <PackageReference Include="ITLab.Models.PublicAPI" Version="1.1.1090" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="refit" Version="5.1.67" />
     <PackageReference Include="Xam.Plugins.Settings" Version="3.1.1" />
     <PackageReference Include="Xamarin.Forms" Version="4.5.0.617" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\EventsPage.xaml">
+    <ProjectReference Include="..\..\ITLab-Mobile.Api\ITLab-Mobile.Api.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\Events\EventContentView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Events\EventControl.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Events\EventsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\LoginPage.xaml">

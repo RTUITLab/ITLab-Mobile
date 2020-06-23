@@ -10,8 +10,6 @@ namespace ITLab_Mobile.ViewModels
     public class LoginViewModel : BaseViewModel
     {
         public Command LoginCommand { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
 
         public LoginViewModel(INavigation navigation)
         {
@@ -25,12 +23,12 @@ namespace ITLab_Mobile.ViewModels
         private readonly INavigation navigation;
 
         async Task MakeLogin()
-        {   
+        {
             if (IsBusy)
                 return;
 
             IsBusy = true;
-            
+
             try
             {
                 OidcClient = Settings.OidcClient;
@@ -38,11 +36,6 @@ namespace ITLab_Mobile.ViewModels
                 var request = await OidcClient.LoginAsync(new LoginRequest());
                 Settings.AccessToken = request.AccessToken;
                 Settings.RefreshToken = request.RefreshToken;
-
-                // var a = request.RefreshTokenHandler;
-                // a.InnerHandler = new HttpClientHandler();
-                // var client = new HttpClient(a);
-                // var respones = await client.GetStringAsync("https://dev.rtuitlab.ru/api/event/?begin=2020-04-02T14:16:19");
 
                 if (request.IsError)
                 {
@@ -56,10 +49,7 @@ namespace ITLab_Mobile.ViewModels
             {
                 Debug.WriteLine(ex);
             }
-            finally
-            {
-                IsBusy = false;
-            }
+            IsBusy = false;
         }
     }
 }

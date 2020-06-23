@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>ITLab_Mobile.Api</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ITLab.Models.PublicAPI" Version="1.1.1090" />
+    <PackageReference Include="refit" Version="5.1.67" />
+  </ItemGroup>
+
+</Project>
