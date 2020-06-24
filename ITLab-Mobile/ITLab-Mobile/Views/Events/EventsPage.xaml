@@ -13,13 +13,26 @@
             <CollectionView x:Name="collectionEvents" ItemsSource="{Binding Events}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Frame HasShadow="True">
-                            <StackLayout>
-                                <Label Text="{Binding Title}"/>
-                            </StackLayout>
-                        </Frame>
+                        <ContentView>
+                            <Frame HasShadow="True"
+                                   BorderColor="{Binding BorderColor}"
+                                   Margin="0,0,0,10">
+                                <StackLayout>
+                                    <Label Text="{Binding Title}"/>
+                                    <Label Text="{Binding EventType.Title}"/>
+                                    <Label Text="{Binding Address}"/>
+                                    <Label Text="{Binding BeginTime}"/>
+                                    <Label Text="{Binding EndTime}"/>
+                                </StackLayout>
+                            </Frame>
+                        </ContentView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <StackLayout>
+                        <Label Text="No data has been loaded"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
             </CollectionView>
         </RefreshView>
     </ContentPage.Content>

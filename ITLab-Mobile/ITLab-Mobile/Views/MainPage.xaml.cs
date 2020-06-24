@@ -19,7 +19,7 @@ namespace ITLab_Mobile.Views
 
             On<Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
 
-            //MakeLogin();
+            MakeLogin();
         }
 
         private async void MakeLogin()

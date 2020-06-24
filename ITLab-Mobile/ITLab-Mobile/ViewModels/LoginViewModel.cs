@@ -11,16 +11,15 @@ namespace ITLab_Mobile.ViewModels
     {
         public Command LoginCommand { get; set; }
 
-        public LoginViewModel(INavigation navigation)
+        public INavigation Navigation { get; set; }
+        public LoginViewModel()
         {
             Title = "Login";
 
             LoginCommand = new Command(async () => await MakeLogin());
-            this.navigation = navigation;
         }
 
         OidcClient OidcClient;
-        private readonly INavigation navigation;
 
         async Task MakeLogin()
         {
@@ -43,7 +42,7 @@ namespace ITLab_Mobile.ViewModels
                     return;
                 }
 
-                await navigation.PopModalAsync();
+                await Navigation.PopModalAsync();
             }
             catch (Exception ex)
             {

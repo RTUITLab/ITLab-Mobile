@@ -1,4 +1,5 @@
 ﻿using ITLab_Mobile.Api;
+using ITLab_Mobile.Api.Models.Extensions;
 using ITLab_Mobile.Services;
 using Models.PublicAPI.Responses.Event;
 using Refit;
@@ -15,7 +16,7 @@ namespace ITLab_Mobile.ViewModels
     public class EventViewModel : BaseViewModel
     {
         public Command EventCommand { get; set; }
-        public List<CompactEventView> Events { get; set; }
+        public List<CompactEventViewExtended> Events { get; set; }
         public bool IsRefreshing { get; set; }
 
         public EventViewModel()
@@ -24,6 +25,7 @@ namespace ITLab_Mobile.ViewModels
 
             EventCommand = new Command(async () => await GetEventsAsync());
             IsRefreshing = false;
+            GetEventsAsync();
         }
 
         async Task GetEventsAsync()
