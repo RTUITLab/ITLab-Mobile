@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ITLab_Mobile.Views.Events;
+using System;
 using System.ComponentModel;
+using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
@@ -19,7 +21,9 @@ namespace ITLab_Mobile.Views
 
             On<Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
 
-            MakeLogin();
+            tabbedPage.Children.Insert(0, new NavigationPage(new EventsPage()) { Title = "Events"});
+            tabbedPage.CurrentPage = tabbedPage.Children.FirstOrDefault();
+            //MakeLogin();
         }
 
         private async void MakeLogin()

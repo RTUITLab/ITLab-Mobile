@@ -1,7 +1,7 @@
 ﻿using ITLab_Mobile.Api;
 using ITLab_Mobile.Api.Models.Extensions;
 using ITLab_Mobile.Services;
-using Models.PublicAPI.Responses.Event;
+using ITLab_Mobile.Views.Events;
 using Refit;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ITLab_Mobile.ViewModels
+namespace ITLab_Mobile.ViewModels.Events
 {
     public class EventViewModel : BaseViewModel
     {
@@ -19,13 +19,31 @@ namespace ITLab_Mobile.ViewModels
         public List<CompactEventViewExtended> Events { get; set; }
         public bool IsRefreshing { get; set; }
 
+        public INavigation Navigation { get; set; }
+
         public EventViewModel()
         {
             Title = "Events";
+            OnPropertyChanged(nameof(Title));
 
             EventCommand = new Command(async () => await GetEventsAsync());
             IsRefreshing = false;
             GetEventsAsync();
+        }
+
+        private CompactEventViewExtended selectedEvent;
+        public CompactEventViewExtended SelectedEvent
+        {
+            get => selectedEvent;
+            set
+            {
+                SetProperty(ref selectedEvent, value);
+                if (value != null)
+                {
+                    NavigateToEvent();
+                    //SelectedEvent = null;
+                }
+            }
         }
 
         async Task GetEventsAsync()
@@ -48,6 +66,11 @@ namespace ITLab_Mobile.ViewModels
 
             IsBusy = IsRefreshing = false;
             OnPropertyChanged(nameof(IsRefreshing));
+        }
+
+        async Task NavigateToEvent()
+        {
+            await Navigation.PushAsync(new OneEventPage(selectedEvent.Id));
         }
     }
 }

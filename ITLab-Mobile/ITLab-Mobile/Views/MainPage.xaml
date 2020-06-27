@@ -5,14 +5,13 @@
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             xmlns:eventPage="clr-namespace:ITLab_Mobile.Views.Events"
             mc:Ignorable="d"
-            x:Class="ITLab_Mobile.Views.MainPage">
+            x:Class="ITLab_Mobile.Views.MainPage"
+            x:Name="tabbedPage">
 
 
     <TabbedPage.Children>
         <NavigationPage Title="Browse">
-
         </NavigationPage>
-        <eventPage:EventsPage />
     </TabbedPage.Children>
 
 </TabbedPage>

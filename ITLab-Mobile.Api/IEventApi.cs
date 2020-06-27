@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Models.PublicAPI.Responses.Event;
 using ITLab_Mobile.Api.Models.Extensions;
+using Models.PublicAPI.Responses.Event;
 
 namespace ITLab_Mobile.Api
 {
@@ -12,5 +12,8 @@ namespace ITLab_Mobile.Api
     {
         [Get("/api/Event")]
         Task<List<CompactEventViewExtended>> GetEvents();
+
+        [Get("/api/Event/{eventId}")]
+        Task<EventViewExtended> GetOneEvent(Guid eventId);
     }
 }

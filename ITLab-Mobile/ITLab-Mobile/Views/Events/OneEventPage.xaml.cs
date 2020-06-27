@@ -1,8 +1,6 @@
 ﻿using ITLab_Mobile.ViewModels.Events;
-using Refit;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,15 +11,18 @@ using Xamarin.Forms.Xaml;
 namespace ITLab_Mobile.Views.Events
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class EventsPage : ContentPage
+    public partial class OneEventPage : ContentPage
     {
-        EventViewModel eventViewModel;
+        public Guid EventId { get; set; }
 
-        public EventsPage()
+        OneEventViewModel oneEventViewModel;
+
+        public OneEventPage(Guid eventId)
         {
             InitializeComponent();
 
-            BindingContext = eventViewModel = new EventViewModel()
+            EventId = eventId;
+            BindingContext = oneEventViewModel = new OneEventViewModel(EventId)
             {
                 Navigation = this.Navigation
             };

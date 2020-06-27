@@ -10,7 +10,10 @@
     <ContentPage.Content>
         <RefreshView IsRefreshing="{Binding IsRefreshing}"
                      Command="{Binding EventCommand}">
-            <CollectionView x:Name="collectionEvents" ItemsSource="{Binding Events}">
+            <CollectionView x:Name="collectionEvents"
+                            ItemsSource="{Binding Events}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedEvent, Mode=TwoWay}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <ContentView>
