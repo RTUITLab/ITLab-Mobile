@@ -18,7 +18,7 @@
                         <ContentView>
                             <Frame HasShadow="True"
                                    BorderColor="{Binding BorderColor}"
-                                   Margin="0,0,0,8">
+                                   Margin="0,4,0,4">
                                 <StackLayout>
                                     <Label Text="{Binding BeginTime, StringFormat='{0:dd.MM.yyyy HH:mm}'}"
                                            FontAttributes="Bold"
@@ -37,6 +37,16 @@
                                     <Label Text="{Binding Address}"
                                            StyleClass="LabelStyle"
                                            FontSize="Small"/>
+                                    <Label Text="Готовность:"
+                                           StyleClass="LabelStyle"
+                                           FontSize="Micro"/>
+                                    <ProgressBar Progress="{Binding ProgressToBar}"
+                                                 ProgressColor="{Binding BorderColor}"/>
+                                    <Label Text="Длительность:"
+                                           StyleClass="LabelStyle"
+                                           FontSize="Micro"/>
+                                    <Label Text="{Binding Duration}"
+                                           StyleClass="LabelStyle" />
                                 </StackLayout>
                             </Frame>
                         </ContentView>

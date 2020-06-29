@@ -57,7 +57,9 @@ namespace ITLab_Mobile.ViewModels.Events
             try
             {
                 var eventApi = RestService.For<IEventApi>(HttpClientFactory.HttpClient);
-                Events = await eventApi.GetEvents();
+                Events = (await eventApi.GetEvents())
+                    .OrderByDescending(key => key.BeginTime)
+                    .ToList();
                 OnPropertyChanged(nameof(Events));
             }
             catch (Exception ex)
