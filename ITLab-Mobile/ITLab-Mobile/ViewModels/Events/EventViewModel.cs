@@ -41,7 +41,7 @@ namespace ITLab_Mobile.ViewModels.Events
                 if (value != null)
                 {
                     NavigateToEvent();
-                    //SelectedEvent = null;
+                    SelectedEvent = null;
                 }
             }
         }
@@ -52,6 +52,7 @@ namespace ITLab_Mobile.ViewModels.Events
                 return;
 
             IsBusy = IsRefreshing = true;
+            OnPropertyChanged(nameof(IsRefreshing));
 
             try
             {

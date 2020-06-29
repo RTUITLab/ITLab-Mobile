@@ -1,8 +1,5 @@
 ﻿using Models.PublicAPI.Responses.Event;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
 
 namespace ITLab_Mobile.Api.Models.Extensions
 {

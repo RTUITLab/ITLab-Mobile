@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:views="clr-namespace:ITLab_Mobile.Views.Events"
              mc:Ignorable="d"
              x:Class="ITLab_Mobile.Views.Events.EventsPage"
              Title="{Binding Title}">
@@ -19,13 +18,21 @@
                         <ContentView>
                             <Frame HasShadow="True"
                                    BorderColor="{Binding BorderColor}"
-                                   Margin="0,0,0,10">
+                                   Margin="0,0,0,8">
                                 <StackLayout>
-                                    <Label Text="{Binding Title}"/>
-                                    <Label Text="{Binding EventType.Title}"/>
+                                    <Label Text="{Binding BeginTime, StringFormat='{0:dd.MM.yyyy HH:mm}'}"
+                                           FontAttributes="Bold"/>
+                                    
+                                    <BoxView BackgroundColor="{Binding BorderColor}"
+                                             HeightRequest="1"
+                                             WidthRequest="250" />
+                                    
+                                    <Label Text="{Binding Title}"
+                                           FontSize="Title"/>
+                                    <Label Text="{Binding EventType.Title}"
+                                           FontSize="Subtitle"/>
                                     <Label Text="{Binding Address}"/>
-                                    <Label Text="{Binding BeginTime}"/>
-                                    <Label Text="{Binding EndTime}"/>
+                                    <Label Text="{Binding EndTime, StringFormat='{0:dd.MM.yyyy HH:mm}'}"/>
                                 </StackLayout>
                             </Frame>
                         </ContentView>

@@ -4,12 +4,20 @@
             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             xmlns:eventPage="clr-namespace:ITLab_Mobile.Views.Events"
+            
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            android:TabbedPage.IsSwipePagingEnabled="False"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+                        
             mc:Ignorable="d"
+            NavigationPage.HasNavigationBar="False"
             x:Class="ITLab_Mobile.Views.MainPage"
-            x:Name="tabbedPage">
+            
+            Padding="5,5,5,0">
 
 
     <TabbedPage.Children>
+        <eventPage:EventsPage />
         <NavigationPage Title="Browse">
         </NavigationPage>
     </TabbedPage.Children>

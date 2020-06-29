@@ -19,10 +19,6 @@ namespace ITLab_Mobile.Views
         {
             InitializeComponent();
 
-            On<Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
-
-            tabbedPage.Children.Insert(0, new NavigationPage(new EventsPage()) { Title = "Events"});
-            tabbedPage.CurrentPage = tabbedPage.Children.FirstOrDefault();
             //MakeLogin();
         }
 
