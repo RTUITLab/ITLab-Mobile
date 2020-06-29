@@ -1,5 +1,6 @@
 ﻿using Xamarin.Forms;
 using ITLab_Mobile.Views;
+using ITLab_Mobile.Services;
 
 namespace ITLab_Mobile
 {
@@ -15,6 +16,7 @@ namespace ITLab_Mobile
 
         protected override void OnStart()
         {
+            Current.Resources = Settings.GurrentTheme;
         }
 
         protected override void OnSleep()

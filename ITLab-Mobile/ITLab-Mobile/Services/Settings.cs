@@ -1,6 +1,7 @@
 ﻿using IdentityModel.OidcClient;
 using IdentityModel.OidcClient.Browser;
 using ITLab_Mobile.Models.Options;
+using ITLab_Mobile.Services.Themes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Plugin.Settings;
@@ -129,6 +130,79 @@ namespace ITLab_Mobile.Services
                     refreshToken: RefreshToken,
                     innerHandler: new HttpClientHandler()
                 );
+            }
+        }
+
+        private const string ThemeKey = "theme";
+        private const string ThemeLight = "light";
+        private const string ThemeDark = "dark";
+
+        private static string Theme
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault(ThemeKey, SettingsDefault);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue(ThemeKey, value);
+            }
+        }
+
+        private static bool IsDarkTheme
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Theme))
+                {
+                    Theme = ThemeDark;
+                    return true;
+                }
+                else
+                {
+                    if (Theme == ThemeDark)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        public static void ChangeTheme()
+        {
+            if (string.IsNullOrEmpty(Theme))
+            {
+                Theme = ThemeDark;
+            }
+            else
+            {
+                if (Theme == ThemeDark)
+                {
+                    Theme = ThemeLight;
+                }
+                else
+                {
+                    Theme = ThemeDark;
+                }
+            }
+        }
+
+        public static ResourceDictionary GurrentTheme
+        {
+            get
+            {
+                if (IsDarkTheme)
+                {
+                    return new DarkTheme();
+                }
+                else
+                {
+                    return new LightTheme();
+                }
             }
         }
     }
