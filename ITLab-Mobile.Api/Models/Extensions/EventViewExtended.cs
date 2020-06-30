@@ -9,9 +9,9 @@ namespace ITLab_Mobile.Api.Models.Extensions
     public class EventViewExtended : EventView
     {
         public DateTime BeginTime
-            => Shifts.FirstOrDefault().BeginTime;
+            => Shifts.OrderBy(key => key.BeginTime).FirstOrDefault().BeginTime;
 
         public DateTime EndTime
-            => Shifts.LastOrDefault().EndTime;
+            => Shifts.OrderBy(key => key.BeginTime).LastOrDefault().EndTime;
     }
 }

@@ -10,18 +10,18 @@ namespace ITLab_Mobile.ViewModels
     public class LoginViewModel : BaseViewModel
     {
         public Command LoginCommand { get; set; }
-
         public INavigation Navigation { get; set; }
+
         public LoginViewModel()
         {
             Title = "Login";
 
-            LoginCommand = new Command(async () => await MakeLogin());
+            LoginCommand = new Command(async () => await Login());
         }
 
         OidcClient OidcClient;
 
-        async Task MakeLogin()
+        async Task Login()
         {
             if (IsBusy)
                 return;

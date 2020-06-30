@@ -4,12 +4,63 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="ITLab_Mobile.Views.Events.OneEventPage">
-    <StackLayout>
-        <Label Text="{Binding Event.Title}"/>
-        <Label Text="{Binding Event.EventType.Title}"/>
-        <Label Text="{Binding Event.Address}"/>
-        <Label Text="{Binding Event.BeginTime}"/>
-        <Label Text="{Binding Event.EndTime}"/>
-    </StackLayout>
+             x:Class="ITLab_Mobile.Views.Events.OneEventPage"
+             Title="{Binding Title}"
+             Padding="2,2,2,0">
+    <AbsoluteLayout>
+        <ScrollView>
+            <StackLayout>
+                <Label Text="{Binding Event.Title}"
+                       StyleClass="LabelStyle"
+                       FontSize="Title"/>
+                <Label Text="{Binding Event.EventType.Title}"
+                       StyleClass="LabelStyle"
+                       FontSize="Subtitle"
+                       Margin="0,0,0,5"/>
+
+                <Grid Padding="0,0,0,0"
+                      Margin="0,0,0,0"
+                      ColumnSpacing="10"
+                      RowSpacing="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Начало:"
+                           StyleClass="LabelStyle"
+                           Grid.Row="0"
+                           Grid.Column="0"/>
+                    <Label Text="{Binding Event.BeginTime, StringFormat='{0:dd.MM.yyyy HH:mm}'}"
+                           StyleClass="LabelStyle"
+                           Grid.Row="0"
+                           Grid.Column="1"/>
+                    <Label Text="Конец:"
+                           StyleClass="LabelStyle"
+                           Grid.Row="1"
+                           Grid.Column="0"/>
+                    <Label Text="{Binding Event.EndTime, StringFormat='{0:dd.MM.yyyy HH:mm}'}"
+                           StyleClass="LabelStyle"
+                           Grid.Row="1"
+                           Grid.Column="1"/>
+
+                    <Label Text="Адрес:"
+                           StyleClass="LabelStyle"
+                           Grid.Row="2"
+                           Grid.Column="0"/>
+                    <Label Text="{Binding Event.Address}"
+                           StyleClass="LabelStyle"
+                           Grid.Row="2"
+                           Grid.Column="1"/>
+                </Grid>
+
+                <Label Text="{Binding Event.Description}"
+                       StyleClass="LabelStyle"/>
+            </StackLayout>
+        </ScrollView>
+    </AbsoluteLayout>
 </ContentPage>

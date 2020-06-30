@@ -15,16 +15,21 @@ namespace ITLab_Mobile.ViewModels.Events
 {
     public class EventViewModel : BaseViewModel
     {
+        private bool isRefreshing = false;
+        public bool IsRefreshing
+        {
+            get { return isRefreshing; }
+            set { SetProperty(ref isRefreshing, value); }
+        }
+
         public Command EventCommand { get; set; }
         public List<CompactEventViewExtended> Events { get; set; }
-        public bool IsRefreshing { get; set; }
 
         public INavigation Navigation { get; set; }
 
         public EventViewModel()
         {
             Title = "Events";
-            OnPropertyChanged(nameof(Title));
 
             EventCommand = new Command(async () => await GetEventsAsync());
             IsRefreshing = false;
@@ -52,7 +57,6 @@ namespace ITLab_Mobile.ViewModels.Events
                 return;
 
             IsBusy = IsRefreshing = true;
-            OnPropertyChanged(nameof(IsRefreshing));
 
             try
             {
@@ -68,7 +72,6 @@ namespace ITLab_Mobile.ViewModels.Events
             }
 
             IsBusy = IsRefreshing = false;
-            OnPropertyChanged(nameof(IsRefreshing));
         }
 
         async Task NavigateToEvent()
