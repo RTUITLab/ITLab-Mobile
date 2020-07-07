@@ -34,5 +34,8 @@ namespace ITLab_Mobile.Api.Models.Extensions.Events
                 return $"{BeginTime.ToString("ddd, dd.MM.yyyy HH:mm", CultureInfo.CreateSpecificCulture("ru-RU"))} - {EndTime.ToString("HH:mm")}";
             }
         }
+
+        public bool IsDescription
+            => !string.IsNullOrEmpty(Description);
     }
 }

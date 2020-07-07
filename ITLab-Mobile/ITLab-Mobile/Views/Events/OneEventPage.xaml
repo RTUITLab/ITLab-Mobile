@@ -6,13 +6,13 @@
              mc:Ignorable="d"
              x:Class="ITLab_Mobile.Views.Events.OneEventPage"
              Title="{Binding Title}"
-             Padding="2,2,2,0">
+             Padding="5,5,5,0">
     <AbsoluteLayout>
         <CollectionView Header="{Binding .}"
                         ItemsSource="{Binding Event.ShiftsEx}">
             <CollectionView.HeaderTemplate>
                 <DataTemplate>
-                    <StackLayout>
+                    <StackLayout Margin="0,0,0,12">
                         <Label Text="{Binding Event.Title}"
                                StyleClass="LabelStyle"
                                FontSize="Title"/>
@@ -20,9 +20,12 @@
                                StyleClass="LabelStyle"
                                FontSize="Subtitle"
                                Margin="0,0,0,5"/>
+                        <BoxView BackgroundColor="LightGray"
+                                 HeightRequest="1"
+                                 WidthRequest="250"/>
 
                         <Grid Padding="0,0,0,0"
-                              Margin="0,0,0,0"
+                              Margin="0,1,0,1"
                               ColumnSpacing="10"
                               RowSpacing="5">
                             <Grid.RowDefinitions>
@@ -61,16 +64,42 @@
                                    Grid.Column="1"/>
                         </Grid>
 
+                        <BoxView BackgroundColor="LightGray"
+                                 HeightRequest="1"
+                                 WidthRequest="250"
+                                 IsVisible="{Binding Event.IsDescription}"/>
+
                         <Label Text="{Binding Event.Description}"
+                               IsVisible="{Binding Event.IsDescription}"
                                StyleClass="LabelStyle"/>
+                        
+                        <BoxView BackgroundColor="LightGray"
+                                 HeightRequest="1"
+                                 WidthRequest="250"/>
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.HeaderTemplate>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout>
+                    <StackLayout Padding="0,0,0,0"
+                                 Margin="0,0,0,0">
                         <Label Text="{Binding BeginEndTime}"
                                StyleClass="LabelStyle"/>
+                        <Label Text="{Binding Description}"
+                               IsVisible="{Binding IsDescription}"
+                               StyleClass="LabelStyle"/>
+                        <BoxView BackgroundColor="LightGray"
+                                 HeightRequest="1"
+                                 WidthRequest="200"/>
+                        <CollectionView ItemsSource="{Binding Places}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <Label Text="Место"/>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

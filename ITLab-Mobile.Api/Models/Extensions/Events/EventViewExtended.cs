@@ -25,5 +25,8 @@ namespace ITLab_Mobile.Api.Models.Extensions.Events
 
         public DateTime EndTime
             => ShiftsEx.LastOrDefault().EndTime;
+
+        public bool IsDescription
+            => !string.IsNullOrEmpty(Description);
     }
 }

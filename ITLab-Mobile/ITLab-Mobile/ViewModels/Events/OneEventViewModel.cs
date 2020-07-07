@@ -1,7 +1,6 @@
 ﻿using ITLab_Mobile.Api;
 using ITLab_Mobile.Api.Models.Extensions.Events;
 using ITLab_Mobile.Services;
-using Models.PublicAPI.Responses.Event;
 using Refit;
 using System;
 using System.Collections.Generic;
