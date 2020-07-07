@@ -8,59 +8,78 @@
              Title="{Binding Title}"
              Padding="2,2,2,0">
     <AbsoluteLayout>
-        <ScrollView>
-            <StackLayout>
-                <Label Text="{Binding Event.Title}"
-                       StyleClass="LabelStyle"
-                       FontSize="Title"/>
-                <Label Text="{Binding Event.EventType.Title}"
-                       StyleClass="LabelStyle"
-                       FontSize="Subtitle"
-                       Margin="0,0,0,5"/>
+        <CollectionView Header="{Binding .}"
+                        ItemsSource="{Binding Event.ShiftsEx}">
+            <CollectionView.HeaderTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Label Text="{Binding Event.Title}"
+                               StyleClass="LabelStyle"
+                               FontSize="Title"/>
+                        <Label Text="{Binding Event.EventType.Title}"
+                               StyleClass="LabelStyle"
+                               FontSize="Subtitle"
+                               Margin="0,0,0,5"/>
 
-                <Grid Padding="0,0,0,0"
-                      Margin="0,0,0,0"
-                      ColumnSpacing="10"
-                      RowSpacing="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Text="Начало:"
-                           StyleClass="LabelStyle"
-                           Grid.Row="0"
-                           Grid.Column="0"/>
-                    <Label Text="{Binding Event.BeginTime, StringFormat='{0:dd.MM.yyyy HH:mm}'}"
-                           StyleClass="LabelStyle"
-                           Grid.Row="0"
-                           Grid.Column="1"/>
-                    <Label Text="Конец:"
-                           StyleClass="LabelStyle"
-                           Grid.Row="1"
-                           Grid.Column="0"/>
-                    <Label Text="{Binding Event.EndTime, StringFormat='{0:dd.MM.yyyy HH:mm}'}"
-                           StyleClass="LabelStyle"
-                           Grid.Row="1"
-                           Grid.Column="1"/>
+                        <Grid Padding="0,0,0,0"
+                              Margin="0,0,0,0"
+                              ColumnSpacing="10"
+                              RowSpacing="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Начало:"
+                                   StyleClass="LabelStyle"
+                                   Grid.Row="0"
+                                   Grid.Column="0"/>
+                            <Label Text="{Binding Event.BeginTime, StringFormat='{0:dd.MM.yyyy HH:mm}'}"
+                                   StyleClass="LabelStyle"
+                                   Grid.Row="0"
+                                   Grid.Column="1"/>
+                            <Label Text="Конец:"
+                                   StyleClass="LabelStyle"
+                                   Grid.Row="1"
+                                   Grid.Column="0"/>
+                            <Label Text="{Binding Event.EndTime, StringFormat='{0:dd.MM.yyyy HH:mm}'}"
+                                   StyleClass="LabelStyle"
+                                   Grid.Row="1"
+                                   Grid.Column="1"/>
 
-                    <Label Text="Адрес:"
-                           StyleClass="LabelStyle"
-                           Grid.Row="2"
-                           Grid.Column="0"/>
-                    <Label Text="{Binding Event.Address}"
-                           StyleClass="LabelStyle"
-                           Grid.Row="2"
-                           Grid.Column="1"/>
-                </Grid>
+                            <Label Text="Адрес:"
+                                   StyleClass="LabelStyle"
+                                   Grid.Row="2"
+                                   Grid.Column="0"/>
+                            <Label Text="{Binding Event.Address}"
+                                   StyleClass="LabelStyle"
+                                   Grid.Row="2"
+                                   Grid.Column="1"/>
+                        </Grid>
 
-                <Label Text="{Binding Event.Description}"
-                       StyleClass="LabelStyle"/>
-            </StackLayout>
-        </ScrollView>
+                        <Label Text="{Binding Event.Description}"
+                               StyleClass="LabelStyle"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.HeaderTemplate>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Label Text="{Binding BeginEndTime}"
+                               StyleClass="LabelStyle"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <!--<CollectionView.FooterTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.FooterTemplate>-->
+        </CollectionView>
     </AbsoluteLayout>
 </ContentPage>

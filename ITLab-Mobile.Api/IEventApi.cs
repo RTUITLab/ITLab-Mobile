@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using ITLab_Mobile.Api.Models.Extensions;
+using ITLab_Mobile.Api.Models.Extensions.Events;
 using Models.PublicAPI.Responses.Event;
 
 namespace ITLab_Mobile.Api

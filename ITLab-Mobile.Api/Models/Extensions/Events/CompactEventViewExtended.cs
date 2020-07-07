@@ -2,7 +2,7 @@
 using System;
 using System.Drawing;
 
-namespace ITLab_Mobile.Api.Models.Extensions
+namespace ITLab_Mobile.Api.Models.Extensions.Events
 {
     public class CompactEventViewExtended : CompactEventView
     {
