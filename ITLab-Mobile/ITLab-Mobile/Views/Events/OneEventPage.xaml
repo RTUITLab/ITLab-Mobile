@@ -9,10 +9,11 @@
              Padding="5,5,5,0">
     <AbsoluteLayout>
         <CollectionView Header="{Binding .}"
-                        ItemsSource="{Binding Event.ShiftsEx}">
+                        ItemsSource="{Binding Event.ShiftsGrouped}"
+                        IsGrouped="True">
             <CollectionView.HeaderTemplate>
                 <DataTemplate>
-                    <StackLayout Margin="0,0,0,12">
+                    <StackLayout Margin="0,0,0,20">
                         <Label Text="{Binding Event.Title}"
                                StyleClass="LabelStyle"
                                FontSize="Title"/>
@@ -72,37 +73,37 @@
                         <Label Text="{Binding Event.Description}"
                                IsVisible="{Binding Event.IsDescription}"
                                StyleClass="LabelStyle"/>
-                        
+
                         <BoxView BackgroundColor="LightGray"
                                  HeightRequest="1"
                                  WidthRequest="250"/>
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.HeaderTemplate>
-            <CollectionView.ItemTemplate>
+
+            <CollectionView.GroupHeaderTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="0,0,0,0"
-                                 Margin="0,0,0,0">
-                        <Label Text="{Binding BeginEndTime}"
+                    <StackLayout>
+                        <Label Text="{Binding Duration}"
                                StyleClass="LabelStyle"/>
                         <Label Text="{Binding Description}"
                                IsVisible="{Binding IsDescription}"
                                StyleClass="LabelStyle"/>
                         <BoxView BackgroundColor="LightGray"
-                                 HeightRequest="1"
-                                 WidthRequest="200"/>
-                        <CollectionView ItemsSource="{Binding Places}">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackLayout>
-                                        <Label Text="Место"/>
-                                    </StackLayout>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
+                                 Margin="15,0,15,0"
+                                 HeightRequest="1"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.GroupHeaderTemplate>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Label Text="Место"
+                               StyleClass="LabelStyle"/>
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+            
             <!--<CollectionView.FooterTemplate>
                 <DataTemplate>
                     <StackLayout>

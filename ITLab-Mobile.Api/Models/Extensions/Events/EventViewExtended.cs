@@ -8,23 +8,22 @@ namespace ITLab_Mobile.Api.Models.Extensions.Events
 {
     public class EventViewExtended : EventView
     {
-        public List<ShiftViewExtended> ShiftsEx
+        public List<ShiftViewGrouped> ShiftsGrouped
             => Shifts.OrderBy(key => key.BeginTime)
-                    .Select(s => new ShiftViewExtended
+                    .Select(s => new ShiftViewGrouped(s.Places)
                     {
                         Id = s.Id,
                         BeginTime = s.BeginTime,
                         EndTime = s.EndTime,
                         Description = s.Description,
-                        Places = s.Places
                     })
                     .ToList();
 
         public DateTime BeginTime
-            => ShiftsEx.FirstOrDefault().BeginTime;
+            => ShiftsGrouped.FirstOrDefault().BeginTime;
 
         public DateTime EndTime
-            => ShiftsEx.LastOrDefault().EndTime;
+            => ShiftsGrouped.LastOrDefault().EndTime;
 
         public bool IsDescription
             => !string.IsNullOrEmpty(Description);
