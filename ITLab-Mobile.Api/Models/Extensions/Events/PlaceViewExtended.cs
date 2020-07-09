@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace ITLab_Mobile.Api.Models.Extensions.Events
 {
@@ -11,26 +12,64 @@ namespace ITLab_Mobile.Api.Models.Extensions.Events
         public bool IsDescription
             => !string.IsNullOrEmpty(Description);
 
-        public List<UserAndEventRole> Users
+        public Command WishCommand { get; }
+
+        public PlaceViewExtended()
+        {
+            WishCommand = new Command(() =>
+            {
+                MessagingCenter.Send<PlaceViewExtended>(this, "wish");
+            });
+        }
+
+        public List<UserAndEventRoleExtended> Users
         {
             get
             {
-                var list = new List<UserAndEventRole>();
+                var list = new List<UserAndEventRoleExtended>();
                 foreach(var user in Participants)
                 {
-                    list.Add(user);
+                    list.Add(new UserAndEventRoleExtended
+                    {
+                        User = user.User,
+                        EventRole = user.EventRole,
+                        CreationTime = user.CreationTime,
+                        DoneTime = user.DoneTime,
+                        PlaceRole = "Участник"
+                    });
                 }
                 foreach (var user in Invited)
                 {
-                    list.Add(user);
+                    list.Add(new UserAndEventRoleExtended
+                    {
+                        User = user.User,
+                        EventRole = user.EventRole,
+                        CreationTime = user.CreationTime,
+                        DoneTime = user.DoneTime,
+                        PlaceRole = "Приглашённый"
+                    });
                 }
                 foreach (var user in Wishers)
                 {
-                    list.Add(user);
+                    list.Add(new UserAndEventRoleExtended
+                    {
+                        User = user.User,
+                        EventRole = user.EventRole,
+                        CreationTime = user.CreationTime,
+                        DoneTime = user.DoneTime,
+                        PlaceRole = "Желающий"
+                    });
                 }
                 foreach (var user in Unknowns)
                 {
-                    list.Add(user);
+                    list.Add(new UserAndEventRoleExtended
+                    {
+                        User = user.User,
+                        EventRole = user.EventRole,
+                        CreationTime = user.CreationTime,
+                        DoneTime = user.DoneTime,
+                        PlaceRole = "Неизвестный"
+                    });
                 }
                 return list;
             }

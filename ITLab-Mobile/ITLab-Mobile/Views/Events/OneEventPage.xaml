@@ -119,6 +119,10 @@
                             <Label Text="{Binding Description}"
                                    IsVisible="{Binding IsDescription}"
                                    StyleClass="LabelStyle"/>
+                            <Button Text="Подать заявку"
+                                    StyleClass="ButtonWishStyle"
+                                    Margin="12,1,12,1"
+                                    Command="{Binding WishCommand}"/>
                             <StackLayout BindableLayout.ItemsSource="{Binding Users}">
                                 <BindableLayout.ItemTemplate>
                                     <DataTemplate>
@@ -142,10 +146,25 @@
                                                 </Grid>
                                                 <Label Text="{Binding User.Email}"
                                                        StyleClass="LabelStyle"/>
-                                                <Label Text="{Binding EventRole.Title}"
-                                                       StyleClass="LabelStyle"
-                                                       FontAttributes="Italic"
-                                                       FontSize="Small"/>
+                                                <Grid Padding="0,0,0,0" Margin="0,0,0,0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Text="{Binding EventRole.Title}"
+                                                           StyleClass="LabelStyle"
+                                                           FontAttributes="Italic"
+                                                           FontSize="Small"
+                                                           Grid.Column="0"/>
+                                                    <Label Text="{Binding PlaceRole}"
+                                                           StyleClass="LabelStyle"
+                                                           FontAttributes="Italic"
+                                                           FontSize="Small"
+                                                           Grid.Column="1"/>
+                                                </Grid>
                                             </StackLayout>
                                         </Frame>
                                     </DataTemplate>

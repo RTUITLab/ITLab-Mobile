@@ -28,4 +28,25 @@
         <Setter Property="HasShadow"
                 Value="True"/>
     </Style>
+    <Style TargetType="Button"
+           Class="ButtonWishStyle">
+        <Setter Property="BackgroundColor"
+                Value="Transparent"/>
+        <Setter Property="Padding"
+                Value="0,0,0,0"/>
+        
+        <Setter Property="TextColor"
+                Value="#a1a1a1"/>
+        <Setter Property="FontSize"
+                Value="Small"/>
+        <Setter Property="FontAttributes"
+                Value="None"/>
+        
+        <Setter Property="BorderColor"
+                Value="#a1a1a1"/>
+        <Setter Property="BorderWidth"
+                Value="1"/>
+        <Setter Property="HeightRequest"
+                Value="30"/>
+    </Style>
 </ResourceDictionary>

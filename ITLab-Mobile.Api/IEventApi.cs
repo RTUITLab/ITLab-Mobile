@@ -15,5 +15,11 @@ namespace ITLab_Mobile.Api
 
         [Get("/api/Event/{eventId}")]
         Task<EventViewExtended> GetOneEvent(Guid eventId);
+
+        [Get("/api/EventRole")]
+        Task<List<EventRoleView>> GetEventRoles();
+
+        [Post("/api/Event/wish/{placeId}/{roleId}")]
+        Task<string> SendWishAsync(Guid placeId, Guid roleId);
     }
 }
