@@ -10,4 +10,22 @@
         <Setter Property="FontSize"
                 Value="Body"/>
     </Style>
+    <Style TargetType="Frame"
+           Class="FramePlaceHeaderStyle">
+        <Setter Property="BackgroundColor"
+                Value="#d1d1d1"/>
+        <Setter Property="BorderColor"
+                Value="#c1c1c1"/>
+        <Setter Property="HasShadow"
+                Value="True"/>
+    </Style>
+    <Style TargetType="Frame"
+           Class="FramePlaceUserStyle">
+        <Setter Property="BackgroundColor"
+                Value="White"/>
+        <Setter Property="BorderColor"
+                Value="#c1c1c1"/>
+        <Setter Property="HasShadow"
+                Value="True"/>
+    </Style>
 </ResourceDictionary>
