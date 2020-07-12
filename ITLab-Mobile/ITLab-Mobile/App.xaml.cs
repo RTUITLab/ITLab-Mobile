@@ -1,11 +1,13 @@
 ﻿using Xamarin.Forms;
 using ITLab_Mobile.Views;
 using ITLab_Mobile.Services;
+using System;
 
 namespace ITLab_Mobile
 {
     public partial class App : Application
     {
+        public static IServiceProvider ServiceProvider { get; set; }
 
         public App()
         {

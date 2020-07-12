@@ -21,7 +21,7 @@ namespace ITLab_Mobile.UWP
         {
             this.InitializeComponent();
 
-            LoadApplication(new ITLab_Mobile.App());
+            LoadApplication(Startup.Init());
         }
     }
 }

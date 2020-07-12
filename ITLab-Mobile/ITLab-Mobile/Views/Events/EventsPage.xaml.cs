@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,10 +22,14 @@ namespace ITLab_Mobile.Views.Events
         {
             InitializeComponent();
 
-            BindingContext = eventViewModel = new EventViewModel()
-            {
-                Navigation = this.Navigation
-            };
+
+            BindingContext = eventViewModel = App.ServiceProvider.GetService<EventViewModel>();
+            eventViewModel.Navigation = this.Navigation;
+
+            //BindingContext = eventViewModel = new EventViewModel()
+            //{
+            //    Navigation = this.Navigation
+            //};
         }
     }
 }

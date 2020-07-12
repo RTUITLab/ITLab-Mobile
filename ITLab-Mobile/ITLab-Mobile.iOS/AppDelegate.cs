@@ -24,7 +24,7 @@ namespace ITLab_Mobile.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             Xamarin.Forms.DependencyService.Register<ASWebAuthenticationSessionBrowser>();
-            LoadApplication(new App());
+            LoadApplication(Startup.Init());
 
             return base.FinishedLaunching(app, options);
         }

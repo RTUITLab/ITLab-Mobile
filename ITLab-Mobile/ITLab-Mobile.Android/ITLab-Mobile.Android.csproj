@@ -56,6 +56,9 @@
     <PackageReference Include="IdentityModel.OidcClient">
       <Version>3.1.2</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting">
+      <Version>3.1.5</Version>
+    </PackageReference>
     <PackageReference Include="Plugin.CurrentActivity">
       <Version>2.1.0.4</Version>
     </PackageReference>

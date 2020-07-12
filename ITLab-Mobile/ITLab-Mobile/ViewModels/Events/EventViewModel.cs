@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -27,12 +28,16 @@ namespace ITLab_Mobile.ViewModels.Events
 
         public INavigation Navigation { get; set; }
 
-        public EventViewModel()
+        private readonly HttpClient httpClient;
+
+        public EventViewModel(IHttpClientFactory httpClientFactory)
         {
             Title = "Events";
 
             EventCommand = new Command(async () => await GetEventsAsync());
             IsRefreshing = false;
+            this.httpClient = httpClientFactory.CreateClient("test_name");
+
             GetEventsAsync();
         }
 
@@ -60,7 +65,9 @@ namespace ITLab_Mobile.ViewModels.Events
 
             try
             {
-                var eventApi = RestService.For<IEventApi>(HttpClientFactory.HttpClient);
+
+
+                var eventApi = RestService.For<IEventApi>(httpClient);
                 Events = (await eventApi.GetEvents())
                     .OrderByDescending(key => key.BeginTime)
                     .ToList();
