@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using IdentityModel.OidcClient;
 using ITLab_Mobile.Services;
+using ITLab_Mobile.Views;
 
 namespace ITLab_Mobile.ViewModels
 {
@@ -42,7 +43,7 @@ namespace ITLab_Mobile.ViewModels
                     return;
                 }
 
-                await Navigation.PopModalAsync();
+                Application.Current.MainPage = new NavigationPage(new MainPage());
             }
             catch (Exception ex)
             {

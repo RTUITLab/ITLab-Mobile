@@ -10,6 +10,7 @@ using System.IO;
 using System.Net.Http;
 using System.Reflection;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace ITLab_Mobile
 {
@@ -45,23 +46,30 @@ namespace ITLab_Mobile
 
         private static void ConfigureServices(HostBuilderContext ctx, IServiceCollection services)
         {
-            services.AddTransient<MessageDelegatingHandler>(cfg =>
+            services.AddSingleton<MessageDelegatingHandler>(cfg =>
             {
                 return new MessageDelegatingHandler(
                     Settings.OidcClient,
-                    Settings.AccessToken,
-                    Settings.RefreshToken
+                    string.IsNullOrEmpty(Settings.AccessToken) ? "default" : Settings.AccessToken,
+                    string.IsNullOrEmpty(Settings.RefreshToken) ? "default" : Settings.RefreshToken
                 );
             });
-            services.AddTransient<EventViewModel>();
 
-            services.AddHttpClient("test_name", cfg =>
+            services.AddHttpClient(Settings.HttpClientName, cfg =>
                 {
                     cfg.BaseAddress = new Uri(Settings.ApiOptions.BaseUrl);
+                    cfg.DefaultRequestHeaders.Add("User-Agent", UserAgent());
                 })
                 .AddHttpMessageHandler<MessageDelegatingHandler>();
 
             services.AddSingleton<App>();
+        }
+
+        private static string UserAgent()
+        {
+            //TODO: Get correct app version
+            var version = $"1.0.0";
+            return $"Xamarin.{Device.RuntimePlatform}/{version}";
         }
     }
 }

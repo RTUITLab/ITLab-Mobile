@@ -13,7 +13,14 @@ namespace ITLab_Mobile
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new MainPage());
+            if (string.IsNullOrEmpty(Settings.AccessToken) || string.IsNullOrEmpty(Settings.RefreshToken))
+            {
+                MainPage = new LoginPage();
+            }
+            else
+            {
+                MainPage = new NavigationPage(new MainPage());
+            }
         }
 
         protected override void OnStart()

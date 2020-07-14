@@ -8,9 +8,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace ITLab_Mobile.ViewModels.Events
 {
@@ -30,13 +30,14 @@ namespace ITLab_Mobile.ViewModels.Events
 
         private readonly HttpClient httpClient;
 
-        public EventViewModel(IHttpClientFactory httpClientFactory)
+        public EventViewModel()
         {
             Title = "Events";
 
             EventCommand = new Command(async () => await GetEventsAsync());
             IsRefreshing = false;
-            this.httpClient = httpClientFactory.CreateClient("test_name");
+
+            httpClient = App.ServiceProvider.GetService<IHttpClientFactory>().CreateClient(Settings.HttpClientName);
 
             GetEventsAsync();
         }
@@ -65,8 +66,6 @@ namespace ITLab_Mobile.ViewModels.Events
 
             try
             {
-
-
                 var eventApi = RestService.For<IEventApi>(httpClient);
                 Events = (await eventApi.GetEvents())
                     .OrderByDescending(key => key.BeginTime)

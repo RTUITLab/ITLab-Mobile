@@ -24,6 +24,7 @@ namespace ITLab_Mobile.Views.Events
             InitializeComponent();
 
             EventId = eventId;
+
             BindingContext = oneEventViewModel = new OneEventViewModel(EventId)
             {
                 Navigation = this.Navigation

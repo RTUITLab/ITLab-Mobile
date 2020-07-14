@@ -12,7 +12,6 @@ namespace ITLab_Mobile.Services.Helpers
             : base(oidcClient, accessToken, refreshToken, innerHandler)
         {
             base.TokenRefreshed += MessageDelegatingHandler_TokenRefreshed;
-            
         }
 
         private void MessageDelegatingHandler_TokenRefreshed(object sender, TokenRefreshedEventArgs e)

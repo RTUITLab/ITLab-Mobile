@@ -7,9 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace ITLab_Mobile.ViewModels.Events
 {
@@ -18,12 +20,14 @@ namespace ITLab_Mobile.ViewModels.Events
         public EventViewExtended Event { get; set; }
         public INavigation Navigation { get; set; }
         public Guid EventId { get; set; }
+        private readonly HttpClient httpClient;
 
         public OneEventViewModel(Guid eventId)
         {
             Title = "Event";
 
             EventId = eventId;
+            httpClient = App.ServiceProvider.GetService<IHttpClientFactory>().CreateClient(Settings.HttpClientName);
             GetEventAsync();
         }
 
@@ -31,7 +35,7 @@ namespace ITLab_Mobile.ViewModels.Events
         {
             try
             {
-                var eventApi = RestService.For<IEventApi>(HttpClientFactory.HttpClient);
+                var eventApi = RestService.For<IEventApi>(httpClient);
                 return await eventApi.GetEventRoles();
             }
             catch (Exception ex)
@@ -52,14 +56,12 @@ namespace ITLab_Mobile.ViewModels.Events
         {
             try
             {
-                var eventApi = RestService.For<IEventApi>(HttpClientFactory.HttpClient);
-                string result = await eventApi.SendWishAsync(placeId, roleId);
-                if (string.IsNullOrEmpty(result))
+                var eventApi = RestService.For<IEventApi>(httpClient);
+                var result = await eventApi.SendWishAsync(placeId, roleId);
+                if (result.IsSuccessStatusCode)
                     return "Заявка отправлена";
-            }
-            catch (ApiException ex)
-            {
-                return ex.Content;
+
+                return $"{result.StatusCode} -- {result.Error.Content}";
             }
             catch (Exception ex)
             {
@@ -78,7 +80,7 @@ namespace ITLab_Mobile.ViewModels.Events
 
             try
             {
-                var eventApi = RestService.For<IEventApi>(HttpClientFactory.HttpClient);
+                var eventApi = RestService.For<IEventApi>(httpClient);
                 Event = await eventApi.GetOneEvent(EventId);
                 OnPropertyChanged(nameof(Event));
             }

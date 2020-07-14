@@ -75,7 +75,7 @@ namespace ITLab_Mobile.Services
 
         private static string GetOptionFromAppsettings(string optionName)
         {
-            var assembly = typeof(HttpClientFactory).GetTypeInfo().Assembly;
+            var assembly = typeof(Settings).GetTypeInfo().Assembly;
             string raw_json = "";
             Stream stream = assembly.GetManifestResourceStream($"{assembly.GetName().Name}.Data.appsettings.json");
             using (var reader = new StreamReader(stream))
@@ -120,18 +120,7 @@ namespace ITLab_Mobile.Services
             }
         }
 
-        public static RefreshTokenDelegatingHandler RefreshTokenDelegatingHandler
-        {
-            get
-            {
-                return new RefreshTokenDelegatingHandler(
-                    oidcClient: OidcClient,
-                    accessToken: AccessToken,
-                    refreshToken: RefreshToken,
-                    innerHandler: new HttpClientHandler()
-                );
-            }
-        }
+        public const string HttpClientName = "itlabmobile";
 
         private const string ThemeKey = "theme";
         private const string ThemeLight = "light";

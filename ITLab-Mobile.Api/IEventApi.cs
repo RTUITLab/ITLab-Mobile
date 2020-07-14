@@ -20,6 +20,6 @@ namespace ITLab_Mobile.Api
         Task<List<EventRoleView>> GetEventRoles();
 
         [Post("/api/Event/wish/{placeId}/{roleId}")]
-        Task<string> SendWishAsync(Guid placeId, Guid roleId);
+        Task<ApiResponse<string>> SendWishAsync(Guid placeId, Guid roleId);
     }
 }
