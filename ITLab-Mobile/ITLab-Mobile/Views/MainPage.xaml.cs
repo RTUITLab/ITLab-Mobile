@@ -1,7 +1,6 @@
-﻿using System;
+﻿using ITLab_Mobile.Services;
 using System.ComponentModel;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+using TabbedPage = Xamarin.Forms.TabbedPage;
 
 namespace ITLab_Mobile.Views
 {
@@ -13,12 +12,6 @@ namespace ITLab_Mobile.Views
         public MainPage()
         {
             InitializeComponent();
-            MakeLogin();
-        }
-
-        private async void MakeLogin()
-        {
-            await Navigation.PushModalAsync(new LoginPage());
         }
     }
 }

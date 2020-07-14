@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ITLab_Mobile.Views.Events.OneEventPage"
+             Title="{Binding Title}"
+             Padding="5">
+    <AbsoluteLayout>
+        <CollectionView Header="{Binding .}"
+                        ItemsSource="{Binding Event.ShiftsGrouped}"
+                        IsGrouped="True">
+            <CollectionView.HeaderTemplate>
+                <DataTemplate>
+                    <StackLayout Margin="0,0,0,20">
+                        <Label Text="{Binding Event.Title}"
+                               StyleClass="LabelStyle"
+                               FontSize="Title"/>
+                        <Label Text="{Binding Event.EventType.Title}"
+                               StyleClass="LabelStyle"
+                               FontSize="Subtitle"
+                               Margin="0,0,0,5"/>
+                        <BoxView BackgroundColor="LightGray"
+                                 HeightRequest="1"
+                                 WidthRequest="250"/>
+
+                        <Grid Padding="0,0,0,0"
+                              Margin="0,1,0,1"
+                              ColumnSpacing="10"
+                              RowSpacing="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="Начало:"
+                                   StyleClass="LabelStyle"
+                                   Grid.Row="0"
+                                   Grid.Column="0"/>
+                            <Label Text="{Binding Event.BeginTime, StringFormat='{0:dd.MM.yyyy HH:mm}'}"
+                                   StyleClass="LabelStyle"
+                                   Grid.Row="0"
+                                   Grid.Column="1"/>
+                            <Label Text="Конец:"
+                                   StyleClass="LabelStyle"
+                                   Grid.Row="1"
+                                   Grid.Column="0"/>
+                            <Label Text="{Binding Event.EndTime, StringFormat='{0:dd.MM.yyyy HH:mm}'}"
+                                   StyleClass="LabelStyle"
+                                   Grid.Row="1"
+                                   Grid.Column="1"/>
+
+                            <Label Text="Адрес:"
+                                   StyleClass="LabelStyle"
+                                   Grid.Row="2"
+                                   Grid.Column="0"/>
+                            <Label Text="{Binding Event.Address}"
+                                   StyleClass="LabelStyle"
+                                   Grid.Row="2"
+                                   Grid.Column="1"/>
+                        </Grid>
+
+                        <BoxView BackgroundColor="LightGray"
+                                 HeightRequest="1"
+                                 WidthRequest="250"
+                                 IsVisible="{Binding Event.IsDescription}"/>
+
+                        <Label Text="{Binding Event.Description}"
+                               IsVisible="{Binding Event.IsDescription}"
+                               StyleClass="LabelStyle"/>
+
+                        <BoxView BackgroundColor="LightGray"
+                                 HeightRequest="1"
+                                 WidthRequest="250"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.HeaderTemplate>
+
+            <CollectionView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <StackLayout Margin="3,5,3,5">
+                        <Label Text="{Binding Duration}"
+                               StyleClass="LabelStyle"
+                               FontAttributes="Bold"/>
+                        <Label Text="{Binding Description}"
+                               IsVisible="{Binding IsDescription}"
+                               StyleClass="LabelStyle"/>
+                        <BoxView BackgroundColor="LightGray"
+                                 Margin="15,0,15,0"
+                                 HeightRequest="1"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.GroupHeaderTemplate>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="3,5,3,0" Padding="5"
+                           StyleClass="FramePlaceHeaderStyle">
+                        <StackLayout Margin="0,0,0,0">
+                            <Grid Padding="0,0,0,0" Margin="0,0,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding PlaceCount}"
+                                       StyleClass="LabelStyle"
+                                       Grid.Column="0"/>
+                                <Label Text="{Binding ParticipantsCount}"
+                                       StyleClass="LabelStyle"
+                                       Grid.Column="1"/>
+                            </Grid>
+                            <Label Text="{Binding Description}"
+                                   IsVisible="{Binding IsDescription}"
+                                   StyleClass="LabelStyle"/>
+                            <Button Text="Подать заявку"
+                                    StyleClass="ButtonWishStyle"
+                                    Margin="12,1,12,1"
+                                    Command="{Binding WishCommand}"/>
+                            <StackLayout BindableLayout.ItemsSource="{Binding Users}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame Margin="2" Padding="5"
+                                               StyleClass="FramePlaceUserStyle">
+                                            <StackLayout Margin="0,0,0,0">
+                                                <Grid Padding="0,0,0,0" Margin="0,0,0,0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Text="{Binding User.FirstName}"
+                                                           StyleClass="LabelStyle"
+                                                           Grid.Column="0"/>
+                                                    <Label Text="{Binding User.LastName}"
+                                                           StyleClass="LabelStyle"
+                                                           Grid.Column="1"/>
+                                                </Grid>
+                                                <Label Text="{Binding User.Email}"
+                                                       StyleClass="LabelStyle"/>
+                                                <Grid Padding="0,0,0,0" Margin="0,0,0,0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Text="{Binding EventRole.Title}"
+                                                           StyleClass="LabelStyle"
+                                                           FontAttributes="Italic"
+                                                           FontSize="Small"
+                                                           Grid.Column="0"/>
+                                                    <Label Text="{Binding PlaceRole}"
+                                                           StyleClass="LabelStyle"
+                                                           FontAttributes="Italic"
+                                                           FontSize="Small"
+                                                           Grid.Column="1"/>
+                                                </Grid>
+                                            </StackLayout>
+                                        </Frame>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <!--<CollectionView.FooterTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.FooterTemplate>-->
+        </CollectionView>
+    </AbsoluteLayout>
+</ContentPage>

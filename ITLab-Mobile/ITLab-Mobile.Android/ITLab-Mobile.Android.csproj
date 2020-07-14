@@ -8,7 +8,7 @@
     <TemplateGuid>{6968b3a4-1835-46a3-ac5c-1ae33b475983}</TemplateGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>ITLab_Mobile.Droid</RootNamespace>
-    <AssemblyName>ITLab-Mobile.Android</AssemblyName>
+    <AssemblyName>ITLab_Mobile.Android</AssemblyName>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
@@ -56,14 +56,17 @@
     <PackageReference Include="IdentityModel.OidcClient">
       <Version>3.1.2</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting">
+      <Version>3.1.5</Version>
+    </PackageReference>
     <PackageReference Include="Plugin.CurrentActivity">
       <Version>2.1.0.4</Version>
     </PackageReference>
     <PackageReference Include="Xam.Plugins.Settings">
       <Version>3.1.1</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.5.0.530" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.5.2" />
+    <PackageReference Include="Xamarin.Forms" Version="4.5.0.617" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.3" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChromeCustomTabsBrowser.cs" />

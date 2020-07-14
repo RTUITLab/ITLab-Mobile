@@ -3,66 +3,39 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using IdentityModel.OidcClient;
-using IdentityModel.OidcClient.Browser;
 using ITLab_Mobile.Services;
-using ITLab_Mobile.Models.Options;
+using ITLab_Mobile.Views;
 
 namespace ITLab_Mobile.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
         public Command LoginCommand { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
+        public INavigation Navigation { get; set; }
 
-        public LoginViewModel(INavigation navigation)
+        public LoginViewModel()
         {
             Title = "Login";
 
-            LoginCommand = new Command(async () => await MakeLogin());
-            this.navigation = navigation;
+            LoginCommand = new Command(async () => await Login());
         }
 
         OidcClient OidcClient;
-        private readonly INavigation navigation;
 
-        async Task MakeLogin()
-        {   
+        async Task Login()
+        {
             if (IsBusy)
                 return;
 
             IsBusy = true;
-            
+
             try
             {
-                var browser = DependencyService.Get<IBrowser>();
-
-                IdentityOptions identityOptions = Settings.IdentityOptions;
-
-                OidcClient = new OidcClient(new OidcClientOptions
-                {
-                    Authority = identityOptions.Authority,
-                    ClientId = identityOptions.ClientId,
-                    ClientSecret = identityOptions.ClientSecret,
-                    Scope = identityOptions.Scope,
-                    RedirectUri = identityOptions.RedirectUri,
-
-                    ResponseMode = OidcClientOptions.AuthorizeResponseMode.Redirect,
-                    Flow = OidcClientOptions.AuthenticationFlow.Hybrid,
-
-                    Browser = browser
-                });
-                
+                OidcClient = Settings.OidcClient;
 
                 var request = await OidcClient.LoginAsync(new LoginRequest());
-
-                // to implement it in http client factory
-                Settings.RefreshTokenHandler = request.RefreshTokenHandler;
-
-                // var a = request.RefreshTokenHandler;
-                // a.InnerHandler = new HttpClientHandler();
-                // var client = new HttpClient(a);
-                // var respones = await client.GetStringAsync("https://dev.rtuitlab.ru/api/event/?begin=2020-04-02T14:16:19");
+                Settings.AccessToken = request.AccessToken;
+                Settings.RefreshToken = request.RefreshToken;
 
                 if (request.IsError)
                 {
@@ -70,18 +43,13 @@ namespace ITLab_Mobile.ViewModels
                     return;
                 }
 
-                //Settings.AccessToken = request.AccessToken;
-                //Settings.RefreshToken = request.RefreshToken;
-                await navigation.PopModalAsync();
+                Application.Current.MainPage = new NavigationPage(new MainPage());
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
             }
-            finally
-            {
-                IsBusy = false;
-            }
+            IsBusy = false;
         }
     }
 }

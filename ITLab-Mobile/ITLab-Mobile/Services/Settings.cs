@@ -1,4 +1,7 @@
-﻿using ITLab_Mobile.Models.Options;
+﻿using IdentityModel.OidcClient;
+using IdentityModel.OidcClient.Browser;
+using ITLab_Mobile.Models.Options;
+using ITLab_Mobile.Services.Themes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Plugin.Settings;
@@ -6,6 +9,7 @@ using Plugin.Settings.Abstractions;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
+using Xamarin.Forms;
 
 namespace ITLab_Mobile.Services
 {
@@ -69,11 +73,9 @@ namespace ITLab_Mobile.Services
             }
         }
 
-        public static DelegatingHandler RefreshTokenHandler { get; set; }
-
         private static string GetOptionFromAppsettings(string optionName)
         {
-            var assembly = typeof(HttpClientFactory).GetTypeInfo().Assembly;
+            var assembly = typeof(Settings).GetTypeInfo().Assembly;
             string raw_json = "";
             Stream stream = assembly.GetManifestResourceStream($"{assembly.GetName().Name}.Data.appsettings.json");
             using (var reader = new StreamReader(stream))
@@ -94,13 +96,102 @@ namespace ITLab_Mobile.Services
             }
         }
 
-        public static IdentityOptions IdentityOptions
+        public static OidcClient OidcClient
         {
             get
             {
-                return JsonConvert.DeserializeObject<IdentityOptions>(
-                    GetOptionFromAppsettings(nameof(Models.Options.IdentityOptions))
+                var identityOptions = JsonConvert.DeserializeObject<IdentityOptions>(
+                    GetOptionFromAppsettings(nameof(IdentityOptions))
                 );
+                var browser = DependencyService.Get<IBrowser>();
+                return new OidcClient(new OidcClientOptions
+                {
+                    Authority = identityOptions.Authority,
+                    ClientId = identityOptions.ClientId,
+                    ClientSecret = identityOptions.ClientSecret,
+                    Scope = identityOptions.Scope,
+                    RedirectUri = identityOptions.RedirectUri,
+
+                    ResponseMode = OidcClientOptions.AuthorizeResponseMode.Redirect,
+                    Flow = OidcClientOptions.AuthenticationFlow.Hybrid,
+
+                    Browser = browser
+                });
+            }
+        }
+
+        public const string HttpClientName = "itlabmobile";
+
+        private const string ThemeKey = "theme";
+        private const string ThemeLight = "light";
+        private const string ThemeDark = "dark";
+
+        private static string Theme
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault(ThemeKey, SettingsDefault);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue(ThemeKey, value);
+            }
+        }
+
+        private static bool IsDarkTheme
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Theme))
+                {
+                    Theme = ThemeDark;
+                    return true;
+                }
+                else
+                {
+                    if (Theme == ThemeDark)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        public static void ChangeTheme()
+        {
+            if (string.IsNullOrEmpty(Theme))
+            {
+                Theme = ThemeDark;
+            }
+            else
+            {
+                if (Theme == ThemeDark)
+                {
+                    Theme = ThemeLight;
+                }
+                else
+                {
+                    Theme = ThemeDark;
+                }
+            }
+        }
+
+        public static ResourceDictionary GurrentTheme
+        {
+            get
+            {
+                if (IsDarkTheme)
+                {
+                    return new DarkTheme();
+                }
+                else
+                {
+                    return new LightTheme();
+                }
             }
         }
     }

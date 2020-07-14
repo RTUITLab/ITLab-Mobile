@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ITLab_Mobile.Services.Themes.DarkTheme">
+    <Style TargetType="Label"
+           Class="LabelStyle">
+        <Setter Property="FontSize"
+                Value="Body"/>
+    </Style>
+    <Style TargetType="Frame"
+           Class="FramePlaceHeaderStyle">
+        <Setter Property="BackgroundColor"
+                Value="#d1d1d1"/>
+        <Setter Property="BorderColor"
+                Value="#c1c1c1"/>
+        <Setter Property="HasShadow"
+                Value="True"/>
+    </Style>
+    <Style TargetType="Frame"
+           Class="FramePlaceUserStyle">
+        <Setter Property="BackgroundColor"
+                Value="White"/>
+        <Setter Property="BorderColor"
+                Value="#c1c1c1"/>
+        <Setter Property="HasShadow"
+                Value="True"/>
+    </Style>
+    <Style TargetType="Button"
+           Class="ButtonWishStyle">
+        <Setter Property="BackgroundColor"
+                Value="Transparent"/>
+        <Setter Property="Padding"
+                Value="0,0,0,0"/>
+        
+        <Setter Property="TextColor"
+                Value="#a1a1a1"/>
+        <Setter Property="FontSize"
+                Value="Small"/>
+        <Setter Property="FontAttributes"
+                Value="None"/>
+        
+        <Setter Property="BorderColor"
+                Value="#a1a1a1"/>
+        <Setter Property="BorderWidth"
+                Value="1"/>
+        <Setter Property="HeightRequest"
+                Value="30"/>
+    </Style>
+</ResourceDictionary>

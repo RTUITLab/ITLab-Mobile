@@ -13,7 +13,10 @@ namespace ITLab_Mobile.Views
         public LoginPage()
         {
             InitializeComponent();
-            BindingContext = loginViewModel = new LoginViewModel(Navigation);
+            BindingContext = loginViewModel = new LoginViewModel()
+            {
+                Navigation = this.Navigation
+            };
         }
     }
 }

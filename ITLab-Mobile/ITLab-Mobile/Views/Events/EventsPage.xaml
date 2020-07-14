@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ITLab_Mobile.Views.Events.EventsPage"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <RefreshView IsRefreshing="{Binding IsRefreshing}"
+                     Command="{Binding EventCommand}">
+            <CollectionView x:Name="collectionEvents"
+                            ItemsSource="{Binding Events}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedEvent, Mode=TwoWay}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <ContentView>
+                            <Frame HasShadow="True"
+                                   BorderColor="{Binding BorderColor}"
+                                   Margin="0,4,0,4">
+                                <StackLayout>
+                                    <Label Text="{Binding BeginTime, StringFormat='{0:dd.MM.yyyy HH:mm}'}"
+                                           FontAttributes="Bold"
+                                           StyleClass="LabelStyle"/>
+
+                                    <BoxView BackgroundColor="{Binding BorderColor}"
+                                             HeightRequest="1"
+                                             WidthRequest="250" />
+
+                                    <Label Text="{Binding Title}"
+                                           StyleClass="LabelStyle"
+                                           FontSize="Title"/>
+                                    <Label Text="{Binding EventType.Title}"
+                                           StyleClass="LabelStyle"
+                                           FontSize="Subtitle"/>
+                                    <Label Text="{Binding Address}"
+                                           StyleClass="LabelStyle"
+                                           FontSize="Small"/>
+                                    <Label Text="Готовность:"
+                                           StyleClass="LabelStyle"
+                                           FontSize="Micro"/>
+                                    <ProgressBar Progress="{Binding ProgressToBar}"
+                                                 ProgressColor="{Binding BorderColor}"/>
+                                    <Label Text="Длительность:"
+                                           StyleClass="LabelStyle"
+                                           FontSize="Micro"/>
+                                    <Label Text="{Binding Duration}"
+                                           StyleClass="LabelStyle" />
+                                </StackLayout>
+                            </Frame>
+                        </ContentView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <StackLayout>
+                        <Label Text="No data has been loaded"
+                               StyleClass="LabelStyle"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>
