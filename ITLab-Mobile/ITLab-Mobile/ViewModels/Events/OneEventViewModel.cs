@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -90,6 +89,69 @@ namespace ITLab_Mobile.ViewModels.Events
             }
 
             IsBusy = false;
+
+            await GetSalaryAsync();
+        }
+
+        async Task GetSalaryAsync()
+        {
+            try
+            {
+                var salaryApi = RestService.For<ISalaryApi>(httpClient);
+                var salaryRaw = await salaryApi.GetOneSalary(EventId);
+
+                if (salaryRaw.IsSuccessStatusCode)
+                {
+                    var salary = salaryRaw.Content;
+                    Event.Salary = salary.Count.ToString() + " ₽";
+
+                    Event.ShiftsGrouped.ForEach(shift =>
+                    {
+                        foreach (var place in shift)
+                        {
+                            var salaryPlace = salary.PlaceSalaries.FirstOrDefault(pl => pl.PlaceId == place.Id);
+                            if (salaryPlace == null)
+                            {
+                                place.Salary = "Оплата не указана";
+                            }
+                            else
+                            {
+                                place.Salary = salaryPlace.Count.ToString() + " ₽";
+                            }
+                        }
+
+                        var salaryShift = salary.ShiftSalaries.FirstOrDefault(sh => sh.ShiftId == shift.Id);
+                        if (salaryShift == null)
+                        {
+                            shift.Salary = "Оплата не указана";
+                        }
+                        else
+                        {
+                            shift.Salary = salaryShift.Count.ToString() + " ₽";
+                        }
+                    });
+                }
+                else
+                {
+                    Event.Salary = "Оплата не указана";
+
+                    Event.ShiftsGrouped.ForEach(shift =>
+                    {
+                        foreach (var place in shift)
+                        {
+                            place.Salary = "Оплата не указана";
+                        }
+                        shift.Salary = "Оплата не указана";
+                    });
+
+                }
+
+                OnPropertyChanged(nameof(Event));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
     }
 }

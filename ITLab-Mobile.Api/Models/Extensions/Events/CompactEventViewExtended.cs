@@ -15,5 +15,21 @@ namespace ITLab_Mobile.Api.Models.Extensions.Events
 
         public string Duration
             => DurationConverter.GetDuration(BeginTime, EndTime);
+
+        public string Salary { get; set; } = "No data";
+        public bool IsSalaryLoaded
+        {
+            get
+            {
+                if (Salary.Equals("No data"))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
     }
 }

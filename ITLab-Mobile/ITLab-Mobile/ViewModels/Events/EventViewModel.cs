@@ -78,6 +78,35 @@ namespace ITLab_Mobile.ViewModels.Events
             }
 
             IsBusy = IsRefreshing = false;
+
+            await GetSalariesAsync();
+        }
+
+        async Task GetSalariesAsync()
+        {
+            try
+            {
+                var salaryApi = RestService.For<ISalaryApi>(httpClient);
+                var salaries = await salaryApi.GetSalaries();
+
+                Events.ForEach(ev =>
+                {
+                    var salary = salaries.FirstOrDefault(s => s.EventId == ev.Id);
+                    if (salary == null)
+                    {
+                        ev.Salary = "Оплата не указана";
+                    }
+                    else
+                    {
+                        ev.Salary = salary.Count.ToString() + " ₽";
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                throw;
+            }
         }
 
         async Task NavigateToEvent()

@@ -39,5 +39,21 @@ namespace ITLab_Mobile.Api.Models.Extensions.Events
 
         public bool IsDescription
             => !string.IsNullOrEmpty(Description);
+
+        public string Salary { get; set; } = "No data";
+        public bool IsSalaryLoaded
+        {
+            get
+            {
+                if (Salary.Equals("No data"))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
     }
 }
