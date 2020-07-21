@@ -5,12 +5,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="ITLab_Mobile.Views.Events.EventsPage"
+             
+             xmlns:converters="clr-namespace:ITLab_Mobile.Services.Helpers.Converters"
+             
              Title="{Binding Title}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="inverseBoolConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <RefreshView IsRefreshing="{Binding IsRefreshing}"
                      Command="{Binding EventCommand}">
             <CollectionView x:Name="collectionEvents"
-                            ItemsSource="{Binding Events}"
+                            ItemsSource="{Binding Events, Mode=OneWay}"
                             SelectionMode="Single"
                             SelectedItem="{Binding SelectedEvent, Mode=TwoWay}">
                 <CollectionView.ItemTemplate>
@@ -20,9 +28,37 @@
                                    BorderColor="{Binding BorderColor}"
                                    Margin="0,4,0,4">
                                 <StackLayout>
-                                    <Label Text="{Binding BeginTime, StringFormat='{0:dd.MM.yyyy HH:mm}'}"
-                                           FontAttributes="Bold"
-                                           StyleClass="LabelStyle"/>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Text="{Binding BeginTime, StringFormat='{0:dd.MM.yyyy HH:mm}'}"
+                                               FontAttributes="Bold"
+                                               StyleClass="LabelStyle"
+                                               Grid.Row="0"
+                                               Grid.Column="0"/>
+                                        <ActivityIndicator IsRunning="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}, Mode=OneWay}"
+                                                           IsVisible="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}, Mode=OneWay}"
+                                                           IsEnabled="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}, Mode=OneWay}"
+                                                           Color="{Binding BorderColor}"
+                                                           WidthRequest="70"
+                                                           HeightRequest="20"
+                                                           HorizontalOptions="End"
+                                                           Grid.Row="0"
+                                                           Grid.Column="1"/>
+                                        <Label Text="{Binding Salary, Mode=OneWay}"
+                                               IsVisible="{Binding IsSalaryLoaded, Mode=OneWay}"
+                                               HorizontalOptions="FillAndExpand"
+                                               HorizontalTextAlignment="End"
+                                               FontAttributes="Bold"
+                                               StyleClass="LabelStyle"
+                                               Grid.Row="0"
+                                               Grid.Column="1"/>
+                                    </Grid>
 
                                     <BoxView BackgroundColor="{Binding BorderColor}"
                                              HeightRequest="1"
