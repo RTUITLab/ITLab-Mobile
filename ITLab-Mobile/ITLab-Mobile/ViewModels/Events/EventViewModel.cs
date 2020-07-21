@@ -41,7 +41,6 @@ namespace ITLab_Mobile.ViewModels.Events
             Title = "Events";
 
             EventCommand = new Command(async () => await GetEventsAsync());
-            IsRefreshing = false;
 
             httpClient = App.ServiceProvider.GetService<IHttpClientFactory>().CreateClient(Settings.HttpClientName);
 

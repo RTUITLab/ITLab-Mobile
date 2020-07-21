@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using IdentityModel.OidcClient;
 using ITLab_Mobile.Services;
 using ITLab_Mobile.Views;
 
@@ -20,8 +20,6 @@ namespace ITLab_Mobile.ViewModels
             LoginCommand = new Command(async () => await Login());
         }
 
-        OidcClient OidcClient;
-
         async Task Login()
         {
             if (IsBusy)
@@ -31,19 +29,33 @@ namespace ITLab_Mobile.ViewModels
 
             try
             {
-                OidcClient = Settings.OidcClient;
-
-                var request = await OidcClient.LoginAsync(new LoginRequest());
-                Settings.AccessToken = request.AccessToken;
-                Settings.RefreshToken = request.RefreshToken;
+                var request = await Settings.OidcClient.LoginAsync();
 
                 if (request.IsError)
                 {
-                    Debug.WriteLine("Error while logging");
+                    Debug.WriteLine("Error while logging in");
                     return;
                 }
 
-                Application.Current.MainPage = new NavigationPage(new MainPage());
+                Settings.AccessToken = request.AccessToken;
+
+                var userInfo = await Settings.OidcClient.GetUserInfoAsync(Settings.AccessToken);
+
+                if (userInfo.IsError)
+                {
+                    Debug.WriteLine("Error while getting user info");
+                    return;
+                }
+
+                if (Guid.TryParse(userInfo.Claims.FirstOrDefault(cl => cl.Type == "sub").Value, out Guid userId))
+                {
+                    Settings.CurrentUserId = userId;
+
+                    Settings.RefreshToken = request.RefreshToken;
+                    Settings.IdentityToken = request.IdentityToken;
+
+                    Application.Current.MainPage = new NavigationPage(new MainPage());
+                }
             }
             catch (Exception ex)
             {

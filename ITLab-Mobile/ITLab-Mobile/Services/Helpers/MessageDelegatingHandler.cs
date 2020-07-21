@@ -1,8 +1,5 @@
 ﻿using IdentityModel.OidcClient;
-using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 
 namespace ITLab_Mobile.Services.Helpers
 {
