@@ -19,12 +19,18 @@ namespace ITLab_Mobile.ViewModels.Events
         private bool isRefreshing = false;
         public bool IsRefreshing
         {
-            get { return isRefreshing; }
+            get => isRefreshing;
             set { SetProperty(ref isRefreshing, value); }
         }
 
         public Command EventCommand { get; set; }
-        public List<CompactEventViewExtended> Events { get; set; }
+
+        private List<CompactEventViewExtended> events = new List<CompactEventViewExtended>();
+        public List<CompactEventViewExtended> Events
+        {
+            get => events;
+            set { SetProperty(ref events, value); }
+        }
 
         public INavigation Navigation { get; set; }
 
@@ -70,7 +76,6 @@ namespace ITLab_Mobile.ViewModels.Events
                 Events = (await eventApi.GetEvents())
                     .OrderByDescending(key => key.BeginTime)
                     .ToList();
-                OnPropertyChanged(nameof(Events));
             }
             catch (Exception ex)
             {
@@ -100,6 +105,7 @@ namespace ITLab_Mobile.ViewModels.Events
                     {
                         ev.Salary = salary.Count.ToString() + " ₽";
                     }
+                    OnPropertyChanged(nameof(Events));
                 });
             }
             catch (Exception ex)

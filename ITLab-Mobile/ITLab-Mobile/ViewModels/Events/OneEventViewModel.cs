@@ -16,7 +16,13 @@ namespace ITLab_Mobile.ViewModels.Events
 {
     public class OneEventViewModel : BaseViewModel
     {
-        public EventViewExtended Event { get; set; }
+        private EventViewExtended oneEvent;
+        public EventViewExtended Event 
+        {
+            get => oneEvent;
+            set { SetProperty(ref oneEvent, value); }
+        }
+
         public INavigation Navigation { get; set; }
         public Guid EventId { get; set; }
         private readonly HttpClient httpClient;
@@ -81,7 +87,6 @@ namespace ITLab_Mobile.ViewModels.Events
             {
                 var eventApi = RestService.For<IEventApi>(httpClient);
                 Event = await eventApi.GetOneEvent(EventId);
-                OnPropertyChanged(nameof(Event));
             }
             catch (Exception ex)
             {
@@ -143,9 +148,7 @@ namespace ITLab_Mobile.ViewModels.Events
                         }
                         shift.Salary = "Оплата не указана";
                     });
-
                 }
-
                 OnPropertyChanged(nameof(Event));
             }
             catch (Exception ex)

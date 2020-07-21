@@ -16,8 +16,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <AbsoluteLayout>
-        <CollectionView Header="{Binding .}"
-                        ItemsSource="{Binding Event.ShiftsGrouped}"
+        <CollectionView Header="{Binding ., Mode=OneWay}"
+                        ItemsSource="{Binding Event.ShiftsGrouped, Mode=OneWay}"
                         IsGrouped="True">
             <CollectionView.HeaderTemplate>
                 <DataTemplate>
@@ -121,15 +121,15 @@
                                HorizontalOptions="FillAndExpand"
                                HorizontalTextAlignment="End"
                                StyleClass="LabelStyle"/>
-                        <ActivityIndicator IsRunning="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}}"
-                                           IsVisible="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}}"
-                                           IsEnabled="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}}"
+                        <ActivityIndicator IsRunning="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}, Mode=OneWay}"
+                                           IsVisible="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}, Mode=OneWay}"
+                                           IsEnabled="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}, Mode=OneWay}"
                                            Color="#007bff"
                                            WidthRequest="70"
                                            HeightRequest="20"
                                            HorizontalOptions="End"/>
-                        <Label Text="{Binding Salary}"
-                               IsVisible="{Binding IsSalaryLoaded}"
+                        <Label Text="{Binding Salary, Mode=OneWay}"
+                               IsVisible="{Binding IsSalaryLoaded, Mode=OneWay}"
                                HorizontalOptions="FillAndExpand"
                                HorizontalTextAlignment="End"
                                StyleClass="LabelStyle"/>
@@ -165,15 +165,15 @@
                                    HorizontalOptions="FillAndExpand"
                                    HorizontalTextAlignment="End"
                                    StyleClass="LabelStyle"/>
-                            <ActivityIndicator IsRunning="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}}"
-                                           IsVisible="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}}"
-                                           IsEnabled="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}}"
+                            <ActivityIndicator IsRunning="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}, Mode=OneWay}"
+                                           IsVisible="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}, Mode=OneWay}"
+                                           IsEnabled="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}, Mode=OneWay}"
                                            Color="#007bff"
                                            WidthRequest="70"
                                            HeightRequest="20"
                                            HorizontalOptions="End"/>
-                            <Label Text="{Binding Salary}"
-                                   IsVisible="{Binding IsSalaryLoaded}"
+                            <Label Text="{Binding Salary, Mode=OneWay}"
+                                   IsVisible="{Binding IsSalaryLoaded, Mode=OneWay}"
                                    HorizontalOptions="FillAndExpand"
                                    HorizontalTextAlignment="End"
                                    StyleClass="LabelStyle"/>
