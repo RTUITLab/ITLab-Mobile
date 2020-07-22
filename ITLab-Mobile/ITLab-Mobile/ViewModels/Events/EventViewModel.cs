@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -23,7 +24,7 @@ namespace ITLab_Mobile.ViewModels.Events
             set { SetProperty(ref isRefreshing, value); }
         }
 
-        public Command EventCommand { get; set; }
+        public ICommand EventCommand { get; set; }
 
         private List<CompactEventViewExtended> events = new List<CompactEventViewExtended>();
         public List<CompactEventViewExtended> Events

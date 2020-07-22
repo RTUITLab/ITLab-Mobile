@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using ITLab_Mobile.Services;
 using ITLab_Mobile.Views;
+using System.Windows.Input;
 
 namespace ITLab_Mobile.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        public Command LoginCommand { get; set; }
+        public ICommand LoginCommand { get; set; }
         public INavigation Navigation { get; set; }
 
         public LoginViewModel()

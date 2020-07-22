@@ -3,7 +3,6 @@ using ITLab_Mobile.Api.Models.User.Properties;
 using Refit;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ITLab_Mobile.Api
@@ -21,5 +20,8 @@ namespace ITLab_Mobile.Api
 
         [Get("/api/account/property/type/{id}")]
         Task<UserPropertyTypeView> GetUserPropertyType(Guid id);
+
+        [Put("/api/account")]
+        Task<UserView> EditUserInfo([Body] UserInfoEditRequest userInfoEditRequest);
     }
 }
