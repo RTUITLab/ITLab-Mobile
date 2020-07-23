@@ -4,8 +4,8 @@
             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             
-            xmlns:eventPage="clr-namespace:ITLab_Mobile.Views.Events"
-            xmlns:profilePage="clr-namespace:ITLab_Mobile.Views.Profile"
+            xmlns:eventPages="clr-namespace:ITLab_Mobile.Views.Events"
+            xmlns:profilePages="clr-namespace:ITLab_Mobile.Views.Profile"
             
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.IsSwipePagingEnabled="False"
@@ -19,8 +19,9 @@
 
 
     <TabbedPage.Children>
-        <eventPage:EventsPage />
-        <profilePage:ProfilePage />
+        <eventPages:EventsPage />
+        <eventPages:CreateEventPage />
+        <profilePages:ProfilePage />
     </TabbedPage.Children>
 
 </TabbedPage>

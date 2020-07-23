@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ITLab_Mobile.Views.Events.CreateEventPage"
+             Title="{Binding Title}">
+    <ScrollView>
+        <StackLayout>
+            <Entry Text="{Binding Event.Title}"
+                   Placeholder="Название"/>
+            <Entry Text="{Binding Event.Address}"
+                   Placeholder="Адрес"/>
+            <Entry Text="{Binding EventTypeName}"
+                   Placeholder="Тип события"
+                   TextChanged="Entry_TextChanged"/>
+
+            <StackLayout Padding="0,0,0,0" Margin="0,0,0,0"
+                         BindableLayout.ItemsSource="{Binding EventTypes}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding Title}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="EventType_Tapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+
+            <Editor Text="{Binding Event.Description}"
+                    Placeholder="Описание"
+                    HeightRequest="70"
+                    IsSpellCheckEnabled="True"/>
+
+            <Button Text="Добавить смену"
+                    Command="{Binding AddShiftCommand}"/>
+            <StackLayout Padding="0,0,0,0" Margin="0,0,0,0"
+                         BindableLayout.ItemsSource="{Binding Shifts}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Entry Text="{Binding Description}"
+                                   Placeholder="Описание"/>
+                            <Grid RowSpacing="0"
+                                  ColumnSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="Начало смены"
+                                       StyleClass="LabelStyle"
+                                       HorizontalTextAlignment="Center"
+                                       Grid.Row="0"
+                                       Grid.ColumnSpan="2"/>
+                                <DatePicker Date="{Binding BeginDate}"
+                                            Grid.Row="1"
+                                            Grid.Column="0"/>
+                                <TimePicker Time="{Binding BeginTime}"
+                                            Grid.Row="1"
+                                            Grid.Column="1"/>
+                                <Label Text="Конец смены"
+                                       StyleClass="LabelStyle"
+                                       HorizontalTextAlignment="Center"
+                                       Grid.Row="2"
+                                       Grid.ColumnSpan="2"/>
+                                <DatePicker Date="{Binding EndDate}"
+                                            Grid.Row="3"
+                                            Grid.Column="0"/>
+                                <TimePicker Time="{Binding EndTime}"
+                                            Grid.Row="3"
+                                            Grid.Column="1"/>
+                            </Grid>
+                            <BoxView BackgroundColor="LightGray"
+                                     HeightRequest="1"
+                                     Margin="10,0,10,0"/>
+
+                            <Button Text="Добавить место"
+                                    Command="{Binding AddPlace}"/>
+                            <StackLayout Padding="0,0,0,0" Margin="0,0,0,0"
+                                         BindableLayout.ItemsSource="{Binding Places}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout>
+                                            <Label Text="Требуемое количество участников"
+                                                   StyleClass="LabelStyle"/>
+                                            <Entry Text="{Binding TargetParticipantsCount}"
+                                                   Placeholder="Требуемое количество участников"
+                                                   Keyboard="Numeric"/>
+                                            <Entry Text="{Binding Description}"
+                                                   Placeholder="Описание"/>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+
+                            <BoxView BackgroundColor="LightGray"
+                                     HeightRequest="1"
+                                     Margin="10,0,10,0"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+
+            <Button Text="Создать"
+                    Command="{Binding CreateCommand}"/>
+        </StackLayout>
+    </ScrollView> 
+</ContentPage>
