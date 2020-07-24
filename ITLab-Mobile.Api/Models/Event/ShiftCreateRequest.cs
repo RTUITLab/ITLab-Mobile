@@ -18,16 +18,21 @@ namespace ITLab_Mobile.Api.Models.Event
 
     public class ShiftCreateRequestObservable
     {
+        public ICommand AddPlace { get; set; }
+        public ICommand DeleteShift { get; set; }
         public ShiftCreateRequestObservable()
         {
             AddPlace = new Command(() =>
             {
                 var clientId = Places.Count;
-                Places.Add(new PlaceCreateRequestObservable
+                var newPlace = new PlaceCreateRequestObservable
                 {
+                    Title = $"Место #{clientId + 1}",
                     ClientId = clientId,
                     TargetParticipantsCount = 1
-                });
+                };
+                newPlace.DeletePlace = new Command(() => Places.Remove(newPlace));
+                Places.Add(newPlace);
             });
         }
 
@@ -42,6 +47,8 @@ namespace ITLab_Mobile.Api.Models.Event
 
         public ObservableCollection<PlaceCreateRequestObservable> Places { get; set; }
 
-        public ICommand AddPlace { get; set; }
+        // Salary
+        public int SalaryCount { get; set; }
+        public string SalaryDescription { get; set; }
     }
 }

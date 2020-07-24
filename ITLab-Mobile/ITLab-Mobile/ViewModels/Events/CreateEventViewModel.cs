@@ -1,6 +1,7 @@
 ﻿using ITLab_Mobile.Api;
 using ITLab_Mobile.Api.Models.Event;
 using ITLab_Mobile.Api.Models.Event.EventType;
+using ITLab_Mobile.Api.Models.Salary;
 using ITLab_Mobile.Services;
 using Refit;
 using System;
@@ -29,10 +30,10 @@ namespace ITLab_Mobile.ViewModels.Events
         }
 
         private string eventTypeName;
-        public string EventTypeName 
-        { 
+        public string EventTypeName
+        {
             get => eventTypeName;
-            set { SetProperty(ref eventTypeName, value); } 
+            set { SetProperty(ref eventTypeName, value); }
         }
 
         private EventCreateRequest eventCreateRequest;
@@ -49,6 +50,13 @@ namespace ITLab_Mobile.ViewModels.Events
             set { SetProperty(ref shiftCreateRequests, value); }
         }
 
+        private EventSalaryCreateEdit eventSalaryCreateEdit;
+        public EventSalaryCreateEdit Salary
+        {
+            get => eventSalaryCreateEdit;
+            set { SetProperty(ref eventSalaryCreateEdit, value); }
+        }
+
         private readonly HttpClient httpClient;
         public CreateEventViewModel()
         {
@@ -57,8 +65,15 @@ namespace ITLab_Mobile.ViewModels.Events
             httpClient = App.ServiceProvider.GetService<IHttpClientFactory>().CreateClient(Settings.HttpClientName);
 
             CreateCommand = new Command(async () => await CreateEvent());
-            Shifts = new ObservableCollection<ShiftCreateRequestObservable>();
             AddShiftCommand = new Command(AddShift);
+
+            EventTypes = new List<EventTypeView>();
+            Event = new EventCreateRequest();
+            Shifts = new ObservableCollection<ShiftCreateRequestObservable>();
+            Salary = new EventSalaryCreateEdit
+            {
+                Count = 0
+            };
         }
 
         async Task CreateEvent()
@@ -96,15 +111,17 @@ namespace ITLab_Mobile.ViewModels.Events
         void AddShift()
         {
             var clientId = Shifts.Count;
-            Shifts.Add(new ShiftCreateRequestObservable
+            var newShift = new ShiftCreateRequestObservable
             {
                 ClientId = clientId,
                 BeginDate = DateTime.Today,
                 BeginTime = DateTime.Now.TimeOfDay,
                 EndDate = DateTime.Today,
                 EndTime = DateTime.Now.TimeOfDay,
-                Places = new ObservableCollection<PlaceCreateRequestObservable>()
-            });
+                Places = new ObservableCollection<PlaceCreateRequestObservable>(),
+            };
+            newShift.DeleteShift = new Command(() => Shifts.Remove(newShift));
+            Shifts.Add(newShift);
         }
     }
 }

@@ -5,7 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="ITLab_Mobile.Views.Events.CreateEventPage"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             
+             xmlns:place="clr-namespace:ITLab_Mobile.Views.Events">
     <ScrollView>
         <StackLayout>
             <Entry Text="{Binding Event.Title}"
@@ -30,87 +32,126 @@
             </StackLayout>
 
             <Editor Text="{Binding Event.Description}"
-                    Placeholder="Описание"
+                    Placeholder="Описание события"
                     HeightRequest="70"
                     IsSpellCheckEnabled="True"/>
 
-            <Button Text="Добавить смену"
-                    Command="{Binding AddShiftCommand}"/>
+            <Label Text="Оплата"
+                   StyleClass="LabelStyle"
+                   HorizontalOptions="Center"/>
+            <Grid Padding="0,0,0,0" Margin="0,0,0,0"
+                  ColumnSpacing="1" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Entry Text="{Binding Salary.Count}"
+                       Placeholder="Оплата не указана"
+                       Keyboard="Numeric"
+                       Grid.Column="0" Grid.Row="0"/>
+                <Entry Text="{Binding Salary.Description}"
+                       Placeholder="Описание оплаты"
+                       Grid.Column="1" Grid.Row="0"/>
+            </Grid>
+
+            <Label Text="Смены"
+                   StyleClass="LabelStyle"
+                   HorizontalOptions="Center"
+                   Margin="0,7,0,3"/>
             <StackLayout Padding="0,0,0,0" Margin="0,0,0,0"
                          BindableLayout.ItemsSource="{Binding Shifts}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout>
-                            <Entry Text="{Binding Description}"
-                                   Placeholder="Описание"/>
-                            <Grid RowSpacing="0"
-                                  ColumnSpacing="0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Label Text="Начало смены"
-                                       StyleClass="LabelStyle"
-                                       HorizontalTextAlignment="Center"
-                                       Grid.Row="0"
-                                       Grid.ColumnSpan="2"/>
-                                <DatePicker Date="{Binding BeginDate}"
-                                            Grid.Row="1"
-                                            Grid.Column="0"/>
-                                <TimePicker Time="{Binding BeginTime}"
-                                            Grid.Row="1"
-                                            Grid.Column="1"/>
-                                <Label Text="Конец смены"
-                                       StyleClass="LabelStyle"
-                                       HorizontalTextAlignment="Center"
-                                       Grid.Row="2"
-                                       Grid.ColumnSpan="2"/>
-                                <DatePicker Date="{Binding EndDate}"
-                                            Grid.Row="3"
-                                            Grid.Column="0"/>
-                                <TimePicker Time="{Binding EndTime}"
-                                            Grid.Row="3"
-                                            Grid.Column="1"/>
-                            </Grid>
-                            <BoxView BackgroundColor="LightGray"
-                                     HeightRequest="1"
-                                     Margin="10,0,10,0"/>
+                        <Frame HasShadow="True"
+                               BorderColor="#007bff"
+                               Padding="0,0,0,0">
+                            <AbsoluteLayout>
+                                <StackLayout Margin="20">
+                                    <Entry Text="{Binding Description}"
+                                           Placeholder="Описание смены"/>
+                                    <Grid Padding="0,0,0,0" Margin="0,0,0,0" ColumnSpacing="1" RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Entry Text="{Binding SalaryCount}"
+                                               Placeholder="Оплата не указана"
+                                               Keyboard="Numeric"
+                                               Grid.Column="0" Grid.Row="0"/>
+                                        <Entry Text="{Binding SalaryDescription}"
+                                               Placeholder="Описание оплаты"
+                                               Grid.Column="1" Grid.Row="0"/>
+                                    </Grid>
+                                    <Grid RowSpacing="0" ColumnSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Text="Начало смены"
+                                               StyleClass="LabelStyle"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"
+                                               Grid.Row="0"
+                                               Grid.ColumnSpan="2"/>
+                                        <DatePicker Date="{Binding BeginDate}"
+                                                    Grid.Row="1"
+                                                    Grid.Column="0"/>
+                                        <TimePicker Time="{Binding BeginTime}"
+                                                    Grid.Row="1"
+                                                    Grid.Column="1"/>
+                                        <Label Text="Конец смены"
+                                               StyleClass="LabelStyle"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"
+                                               Grid.Row="2"
+                                               Grid.ColumnSpan="2"/>
+                                        <DatePicker Date="{Binding EndDate}"
+                                                    Grid.Row="3"
+                                                    Grid.Column="0"/>
+                                        <TimePicker Time="{Binding EndTime}"
+                                                    Grid.Row="3"
+                                                    Grid.Column="1"/>
+                                    </Grid>
 
-                            <Button Text="Добавить место"
-                                    Command="{Binding AddPlace}"/>
-                            <StackLayout Padding="0,0,0,0" Margin="0,0,0,0"
-                                         BindableLayout.ItemsSource="{Binding Places}">
-                                <BindableLayout.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackLayout>
-                                            <Label Text="Требуемое количество участников"
-                                                   StyleClass="LabelStyle"/>
-                                            <Entry Text="{Binding TargetParticipantsCount}"
-                                                   Placeholder="Требуемое количество участников"
-                                                   Keyboard="Numeric"/>
-                                            <Entry Text="{Binding Description}"
-                                                   Placeholder="Описание"/>
-                                        </StackLayout>
-                                    </DataTemplate>
-                                </BindableLayout.ItemTemplate>
-                            </StackLayout>
+                                    <StackLayout Padding="0,0,0,0" Margin="0,0,0,0" BindableLayout.ItemsSource="{Binding Places}"
+                                                 WidthRequest="120">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <place:CreateEventPlaceView />
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
 
-                            <BoxView BackgroundColor="LightGray"
-                                     HeightRequest="1"
-                                     Margin="10,0,10,0"/>
-                        </StackLayout>
+                                    <Button Text="Добавить место"
+                                        Command="{Binding AddPlace}"/>
+                                </StackLayout>
+                                <Button Text="X"
+                                        Command="{Binding DeleteShift}"
+                                        Padding="0,0,0,0"
+                                        AbsoluteLayout.LayoutBounds="1,0,40,40" AbsoluteLayout.LayoutFlags="PositionProportional"/>
+                            </AbsoluteLayout>
+                        </Frame>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </StackLayout>
 
+            <Button Text="Добавить смену"
+                    Command="{Binding AddShiftCommand}"/>
+
             <Button Text="Создать"
                     Command="{Binding CreateCommand}"/>
         </StackLayout>
-    </ScrollView> 
+    </ScrollView>
 </ContentPage>

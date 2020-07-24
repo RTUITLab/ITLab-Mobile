@@ -27,7 +27,7 @@ namespace ITLab_Mobile.Views.Events
             await createEventViewModel.UpdateEventTypes();
         }
 
-        async void EventType_Tapped(object sender, EventArgs e)
+        void EventType_Tapped(object sender, EventArgs e)
         {
             createEventViewModel.EventTypeName = (sender as Label).Text;
         }
