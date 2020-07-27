@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ITLab_Mobile.Api.Models.Extensions.Events;
 using Models.PublicAPI.Responses.Event;
 using EventTypeView = ITLab_Mobile.Api.Models.Event.EventType.EventTypeView;
+using ITLab_Mobile.Api.Models.Event;
 
 namespace ITLab_Mobile.Api
 {
@@ -25,5 +26,8 @@ namespace ITLab_Mobile.Api
 
         [Get("/api/EventType")]
         Task<List<EventTypeView>> GetEventTypes(string match);
+
+        [Post("/api/Event")]
+        Task<EventViewCreated> CreateEvent([Body] EventCreateRequest createRequest);
     }
 }

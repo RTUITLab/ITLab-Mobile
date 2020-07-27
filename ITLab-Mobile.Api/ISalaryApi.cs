@@ -3,7 +3,6 @@ using ITLab_Mobile.Api.Models.Salary;
 using Refit;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ITLab_Mobile.Api
@@ -15,5 +14,8 @@ namespace ITLab_Mobile.Api
 
         [Get("/api/salary/v1/event/{eventId}")]
         Task<ApiResponse<EventSalaryFullViewExtended>> GetOneSalary(Guid eventId);
+
+        [Put("/api/salary/v1/event/{eventId}")]
+        Task<EventSalaryFullView> CreateEditSalary(Guid eventId, [Body] EventSalaryCreateEdit salaryCreateEdit);
     }
 }

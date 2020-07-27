@@ -7,7 +7,15 @@
              x:Class="ITLab_Mobile.Views.Events.CreateEventPage"
              Title="{Binding Title}"
              
-             xmlns:place="clr-namespace:ITLab_Mobile.Views.Events">
+             xmlns:place="clr-namespace:ITLab_Mobile.Views.Events"
+             
+             xmlns:converters="clr-namespace:ITLab_Mobile.Services.Helpers.Converters">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="inverseBoolConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ScrollView>
         <StackLayout>
             <Entry Text="{Binding Event.Title}"
@@ -151,6 +159,7 @@
                     Command="{Binding AddShiftCommand}"/>
 
             <Button Text="Создать"
+                    IsEnabled="{Binding IsBusy, Converter={StaticResource inverseBoolConverter}}"
                     Command="{Binding CreateCommand}"/>
         </StackLayout>
     </ScrollView>

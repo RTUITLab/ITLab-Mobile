@@ -20,11 +20,11 @@ namespace ITLab_Mobile.Api.Models.Event
     {
         public ICommand AddPlace { get; set; }
         public ICommand DeleteShift { get; set; }
+        private int clientId = 0;
         public ShiftCreateRequestObservable()
         {
             AddPlace = new Command(() =>
             {
-                var clientId = Places.Count;
                 var newPlace = new PlaceCreateRequestObservable
                 {
                     Title = $"Место #{clientId + 1}",
@@ -33,6 +33,7 @@ namespace ITLab_Mobile.Api.Models.Event
                 };
                 newPlace.DeletePlace = new Command(() => Places.Remove(newPlace));
                 Places.Add(newPlace);
+                clientId++;
             });
         }
 
