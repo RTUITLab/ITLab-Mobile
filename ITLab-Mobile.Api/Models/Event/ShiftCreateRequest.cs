@@ -27,9 +27,9 @@ namespace ITLab_Mobile.Api.Models.Event
             {
                 var newPlace = new PlaceCreateRequestObservable
                 {
-                    Title = $"Место #{clientId + 1}",
+                    Title = $"Место #{Places.Count + 1}",
                     ClientId = clientId,
-                    TargetParticipantsCount = 1
+                    TargetParticipantsCount = 0
                 };
                 newPlace.DeletePlace = new Command(() => Places.Remove(newPlace));
                 Places.Add(newPlace);

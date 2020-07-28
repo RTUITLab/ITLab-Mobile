@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Forms.Internals;
 
 namespace ITLab_Mobile.ViewModels.Events
 {
@@ -86,7 +87,8 @@ namespace ITLab_Mobile.ViewModels.Events
             try
             {
                 var eventApi = RestService.For<IEventApi>(httpClient);
-                Event = await eventApi.GetOneEvent(EventId);
+                var eventView = await eventApi.GetOneEvent(EventId);
+                Event = await GetSalaryAsync(eventView);
             }
             catch (Exception ex)
             {
@@ -95,10 +97,9 @@ namespace ITLab_Mobile.ViewModels.Events
 
             IsBusy = false;
 
-            await GetSalaryAsync();
         }
 
-        async Task GetSalaryAsync()
+        async Task<EventViewExtended> GetSalaryAsync(EventViewExtended eventView)
         {
             try
             {
@@ -108,9 +109,9 @@ namespace ITLab_Mobile.ViewModels.Events
                 if (salaryRaw.IsSuccessStatusCode)
                 {
                     var salary = salaryRaw.Content;
-                    Event.Salary = salary.Count.ToString() + " ₽";
+                    eventView.Salary = salary.Count.ToString() + " ₽";
 
-                    Event.ShiftsGrouped.ForEach(shift =>
+                    eventView.ShiftsGrouped.ForEach(shift =>
                     {
                         foreach (var place in shift)
                         {
@@ -138,9 +139,9 @@ namespace ITLab_Mobile.ViewModels.Events
                 }
                 else
                 {
-                    Event.Salary = "Оплата не указана";
+                    eventView.Salary = "Оплата не указана";
 
-                    Event.ShiftsGrouped.ForEach(shift =>
+                    eventView.ShiftsGrouped.ForEach(shift =>
                     {
                         foreach (var place in shift)
                         {
@@ -149,12 +150,14 @@ namespace ITLab_Mobile.ViewModels.Events
                         shift.Salary = "Оплата не указана";
                     });
                 }
-                OnPropertyChanged(nameof(Event));
+                return eventView;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
             }
+
+            return null;
         }
     }
 }
