@@ -6,6 +6,7 @@
             
             xmlns:eventPages="clr-namespace:ITLab_Mobile.Views.Events"
             xmlns:profilePages="clr-namespace:ITLab_Mobile.Views.Profile"
+            xmlns:userPages="clr-namespace:ITLab_Mobile.Views.Users"
             
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.IsSwipePagingEnabled="False"
@@ -20,6 +21,7 @@
 
     <TabbedPage.Children>
         <eventPages:EventsPage />
+        <userPages:UsersPage />
         <profilePages:ProfilePage />
     </TabbedPage.Children>
 

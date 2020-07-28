@@ -97,8 +97,7 @@
                 </CollectionView.ItemTemplate>
                 <CollectionView.EmptyView>
                     <StackLayout>
-                        <Label Text="No data has been loaded"
-                               StyleClass="LabelStyle"/>
+                        <Label Text="No data has been loaded" StyleClass="LabelStyle"/>
                     </StackLayout>
                 </CollectionView.EmptyView>
             </CollectionView>

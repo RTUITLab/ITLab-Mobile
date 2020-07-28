@@ -1,4 +1,5 @@
-﻿using ITLab_Mobile.Api.Models.User;
+﻿using ITLab_Mobile.Api.Models.Extensions.User;
+using ITLab_Mobile.Api.Models.User;
 using ITLab_Mobile.Api.Models.User.Properties;
 using Refit;
 using System;
@@ -11,6 +12,9 @@ namespace ITLab_Mobile.Api
     {
         [Get("/api/User/{id}")]
         Task<UserView> GetUser(Guid id);
+
+        [Get("/api/User")]
+        Task<IList<UserViewExtended>> GetUsers(string match, int count);
 
         [Get("/api/account/property")]
         Task<List<UserPropertyView>> GetUserProperties();
