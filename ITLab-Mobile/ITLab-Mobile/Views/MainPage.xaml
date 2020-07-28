@@ -20,7 +20,6 @@
 
     <TabbedPage.Children>
         <eventPages:EventsPage />
-        <eventPages:CreateEventPage />
         <profilePages:ProfilePage />
     </TabbedPage.Children>
 

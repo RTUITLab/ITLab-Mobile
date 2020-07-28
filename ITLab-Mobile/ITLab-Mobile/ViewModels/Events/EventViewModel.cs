@@ -25,6 +25,7 @@ namespace ITLab_Mobile.ViewModels.Events
         }
 
         public ICommand EventCommand { get; set; }
+        public ICommand CreateEventCommand { get; set; }
 
         private List<CompactEventViewExtended> events = new List<CompactEventViewExtended>();
         public List<CompactEventViewExtended> Events
@@ -42,6 +43,7 @@ namespace ITLab_Mobile.ViewModels.Events
             Title = "Events";
 
             EventCommand = new Command(async () => await GetEventsAsync());
+            CreateEventCommand = new Command(async () => await Navigation.PushAsync(new CreateEventPage()));
 
             httpClient = App.ServiceProvider.GetService<IHttpClientFactory>().CreateClient(Settings.HttpClientName);
 

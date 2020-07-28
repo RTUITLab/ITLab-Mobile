@@ -20,7 +20,14 @@
             <CollectionView x:Name="collectionEvents"
                             ItemsSource="{Binding Events, Mode=OneWay}"
                             SelectionMode="Single"
-                            SelectedItem="{Binding SelectedEvent, Mode=TwoWay}">
+                            SelectedItem="{Binding SelectedEvent, Mode=TwoWay}"
+                            Header="{Binding .}">
+                <CollectionView.HeaderTemplate>
+                    <DataTemplate>
+                        <Button Text="Создать событие"
+                                Command="{Binding CreateEventCommand}"/>
+                    </DataTemplate>
+                </CollectionView.HeaderTemplate>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <ContentView>
