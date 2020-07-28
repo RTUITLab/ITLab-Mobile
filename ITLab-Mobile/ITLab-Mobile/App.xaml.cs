@@ -25,7 +25,7 @@ namespace ITLab_Mobile
 
         protected override void OnStart()
         {
-            Current.Resources = Settings.GurrentTheme;
+            Current.Resources = Settings.CurrentTheme;
         }
 
         protected override void OnSleep()

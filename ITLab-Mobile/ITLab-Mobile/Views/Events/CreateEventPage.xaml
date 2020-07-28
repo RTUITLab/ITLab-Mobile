@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ITLab_Mobile.Views.Events.CreateEventPage"
+             Title="{Binding Title}"
+             
+             xmlns:place="clr-namespace:ITLab_Mobile.Views.Events"
+             
+             xmlns:converters="clr-namespace:ITLab_Mobile.Services.Helpers.Converters">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="inverseBoolConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ScrollView>
+        <StackLayout>
+            <Entry Text="{Binding Event.Title}"
+                   Placeholder="Название"/>
+            <Entry Text="{Binding Event.Address}"
+                   Placeholder="Адрес"/>
+            <Entry Text="{Binding EventTypeName}"
+                   Placeholder="Тип события"
+                   TextChanged="Entry_TextChanged"/>
+
+            <StackLayout Padding="0,0,0,0" Margin="0,0,0,0"
+                         BindableLayout.ItemsSource="{Binding EventTypes}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding Title}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="EventType_Tapped"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+
+            <Editor Text="{Binding Event.Description}"
+                    Placeholder="Описание события"
+                    HeightRequest="70"
+                    IsSpellCheckEnabled="True"/>
+
+            <Label Text="Оплата"
+                   StyleClass="LabelStyle"
+                   HorizontalOptions="Center"/>
+            <Grid Padding="0,0,0,0" Margin="0,0,0,0"
+                  ColumnSpacing="1" RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Entry Text="{Binding Salary.Count}"
+                       Placeholder="Оплата не указана"
+                       Keyboard="Numeric"
+                       Grid.Column="0" Grid.Row="0"/>
+                <Entry Text="{Binding Salary.Description}"
+                       Placeholder="Описание оплаты"
+                       Grid.Column="1" Grid.Row="0"/>
+            </Grid>
+
+            <Label Text="Смены"
+                   StyleClass="LabelStyle"
+                   HorizontalOptions="Center"
+                   Margin="0,7,0,3"/>
+            <StackLayout Padding="0,0,0,0" Margin="0,0,0,0"
+                         BindableLayout.ItemsSource="{Binding Shifts}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Frame HasShadow="True"
+                               BorderColor="#007bff"
+                               Padding="0,0,0,0">
+                            <AbsoluteLayout>
+                                <StackLayout Margin="20">
+                                    <Entry Text="{Binding Description}"
+                                           Placeholder="Описание смены"/>
+                                    <Grid Padding="0,0,0,0" Margin="0,0,0,0" ColumnSpacing="1" RowSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="80"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Entry Text="{Binding SalaryCount}"
+                                               Placeholder="Оплата не указана"
+                                               Keyboard="Numeric"
+                                               Grid.Column="0" Grid.Row="0"/>
+                                        <Entry Text="{Binding SalaryDescription}"
+                                               Placeholder="Описание оплаты"
+                                               Grid.Column="1" Grid.Row="0"/>
+                                    </Grid>
+                                    <Grid RowSpacing="0" ColumnSpacing="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Text="Начало смены"
+                                               StyleClass="LabelStyle"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"
+                                               Grid.Row="0"
+                                               Grid.ColumnSpan="2"/>
+                                        <DatePicker Date="{Binding BeginDate}"
+                                                    Grid.Row="1"
+                                                    Grid.Column="0"/>
+                                        <TimePicker Time="{Binding BeginTime}"
+                                                    Grid.Row="1"
+                                                    Grid.Column="1"/>
+                                        <Label Text="Конец смены"
+                                               StyleClass="LabelStyle"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"
+                                               Grid.Row="2"
+                                               Grid.ColumnSpan="2"/>
+                                        <DatePicker Date="{Binding EndDate}"
+                                                    Grid.Row="3"
+                                                    Grid.Column="0"/>
+                                        <TimePicker Time="{Binding EndTime}"
+                                                    Grid.Row="3"
+                                                    Grid.Column="1"/>
+                                    </Grid>
+
+                                    <StackLayout Padding="0,0,0,0" Margin="0,0,0,0" BindableLayout.ItemsSource="{Binding Places}"
+                                                 WidthRequest="120">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <place:CreateEventPlaceView />
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+
+                                    <Button Text="Добавить место"
+                                        Command="{Binding AddPlace}"/>
+                                </StackLayout>
+                                <Button Text="X"
+                                        Command="{Binding DeleteShift}"
+                                        Padding="0,0,0,0"
+                                        AbsoluteLayout.LayoutBounds="1,0,40,40" AbsoluteLayout.LayoutFlags="PositionProportional"/>
+                            </AbsoluteLayout>
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+
+            <Button Text="Добавить смену"
+                    Command="{Binding AddShiftCommand}"/>
+
+            <Button Text="Создать"
+                    IsEnabled="{Binding IsBusy, Converter={StaticResource inverseBoolConverter}}"
+                    Command="{Binding CreateCommand}"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

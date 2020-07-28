@@ -5,11 +5,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="ITLab_Mobile.Views.Events.OneEventPage"
+             
+             xmlns:converters="clr-namespace:ITLab_Mobile.Services.Helpers.Converters"
+             
              Title="{Binding Title}"
              Padding="5">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="inverseBoolConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <AbsoluteLayout>
-        <CollectionView Header="{Binding .}"
-                        ItemsSource="{Binding Event.ShiftsGrouped}"
+        <CollectionView Header="{Binding ., Mode=OneWay}"
+                        ItemsSource="{Binding Event.ShiftsGrouped, Mode=OneWay}"
                         IsGrouped="True">
             <CollectionView.HeaderTemplate>
                 <DataTemplate>
@@ -30,6 +38,7 @@
                               ColumnSpacing="10"
                               RowSpacing="5">
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
@@ -55,13 +64,31 @@
                                    Grid.Row="1"
                                    Grid.Column="1"/>
 
-                            <Label Text="Адрес:"
+                            <Label Text="Оплата:"
                                    StyleClass="LabelStyle"
                                    Grid.Row="2"
                                    Grid.Column="0"/>
-                            <Label Text="{Binding Event.Address}"
+                            <ActivityIndicator IsRunning="{Binding Event.IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}}"
+                                               IsVisible="{Binding Event.IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}}"
+                                               IsEnabled="{Binding Event.IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}}"
+                                               Color="#007bff"
+                                               WidthRequest="70"
+                                               HeightRequest="20"
+                                               Grid.Row="2"
+                                               Grid.Column="1"/>
+                            <Label Text="{Binding Event.Salary}"
+                                   IsVisible="{Binding Event.IsSalaryLoaded}"
                                    StyleClass="LabelStyle"
                                    Grid.Row="2"
+                                   Grid.Column="1"/>
+
+                            <Label Text="Адрес:"
+                                   StyleClass="LabelStyle"
+                                   Grid.Row="3"
+                                   Grid.Column="0"/>
+                            <Label Text="{Binding Event.Address}"
+                                   StyleClass="LabelStyle"
+                                   Grid.Row="3"
                                    Grid.Column="1"/>
                         </Grid>
 
@@ -86,9 +113,25 @@
                     <StackLayout Margin="3,5,3,5">
                         <Label Text="{Binding Duration}"
                                StyleClass="LabelStyle"
+                               HorizontalOptions="FillAndExpand"
+                               HorizontalTextAlignment="End"
                                FontAttributes="Bold"/>
                         <Label Text="{Binding Description}"
                                IsVisible="{Binding IsDescription}"
+                               HorizontalOptions="FillAndExpand"
+                               HorizontalTextAlignment="End"
+                               StyleClass="LabelStyle"/>
+                        <ActivityIndicator IsRunning="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}, Mode=OneWay}"
+                                           IsVisible="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}, Mode=OneWay}"
+                                           IsEnabled="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}, Mode=OneWay}"
+                                           Color="#007bff"
+                                           WidthRequest="70"
+                                           HeightRequest="20"
+                                           HorizontalOptions="End"/>
+                        <Label Text="{Binding Salary, Mode=OneWay}"
+                               IsVisible="{Binding IsSalaryLoaded, Mode=OneWay}"
+                               HorizontalOptions="FillAndExpand"
+                               HorizontalTextAlignment="End"
                                StyleClass="LabelStyle"/>
                         <BoxView BackgroundColor="LightGray"
                                  Margin="15,0,15,0"
@@ -101,7 +144,8 @@
                     <Frame Margin="3,5,3,0" Padding="5"
                            StyleClass="FramePlaceHeaderStyle">
                         <StackLayout Margin="0,0,0,0">
-                            <Grid Padding="0,0,0,0" Margin="0,0,0,0">
+                            <Grid Padding="0,0,0,0" Margin="0,0,0,0"
+                                  HorizontalOptions="End">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
@@ -118,6 +162,20 @@
                             </Grid>
                             <Label Text="{Binding Description}"
                                    IsVisible="{Binding IsDescription}"
+                                   HorizontalOptions="FillAndExpand"
+                                   HorizontalTextAlignment="End"
+                                   StyleClass="LabelStyle"/>
+                            <ActivityIndicator IsRunning="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}, Mode=OneWay}"
+                                           IsVisible="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}, Mode=OneWay}"
+                                           IsEnabled="{Binding IsSalaryLoaded, Converter={StaticResource inverseBoolConverter}, Mode=OneWay}"
+                                           Color="#007bff"
+                                           WidthRequest="70"
+                                           HeightRequest="20"
+                                           HorizontalOptions="End"/>
+                            <Label Text="{Binding Salary, Mode=OneWay}"
+                                   IsVisible="{Binding IsSalaryLoaded, Mode=OneWay}"
+                                   HorizontalOptions="FillAndExpand"
+                                   HorizontalTextAlignment="End"
                                    StyleClass="LabelStyle"/>
                             <Button Text="Подать заявку"
                                     StyleClass="ButtonWishStyle"

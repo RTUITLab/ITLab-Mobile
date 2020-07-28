@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -19,12 +20,19 @@ namespace ITLab_Mobile.ViewModels.Events
         private bool isRefreshing = false;
         public bool IsRefreshing
         {
-            get { return isRefreshing; }
+            get => isRefreshing;
             set { SetProperty(ref isRefreshing, value); }
         }
 
-        public Command EventCommand { get; set; }
-        public List<CompactEventViewExtended> Events { get; set; }
+        public ICommand EventCommand { get; set; }
+        public ICommand CreateEventCommand { get; set; }
+
+        private List<CompactEventViewExtended> events = new List<CompactEventViewExtended>();
+        public List<CompactEventViewExtended> Events
+        {
+            get => events;
+            set { SetProperty(ref events, value); }
+        }
 
         public INavigation Navigation { get; set; }
 
@@ -35,7 +43,7 @@ namespace ITLab_Mobile.ViewModels.Events
             Title = "Events";
 
             EventCommand = new Command(async () => await GetEventsAsync());
-            IsRefreshing = false;
+            CreateEventCommand = new Command(async () => await Navigation.PushAsync(new CreateEventPage()));
 
             httpClient = App.ServiceProvider.GetService<IHttpClientFactory>().CreateClient(Settings.HttpClientName);
 
@@ -70,7 +78,6 @@ namespace ITLab_Mobile.ViewModels.Events
                 Events = (await eventApi.GetEvents())
                     .OrderByDescending(key => key.BeginTime)
                     .ToList();
-                OnPropertyChanged(nameof(Events));
             }
             catch (Exception ex)
             {
@@ -78,6 +85,36 @@ namespace ITLab_Mobile.ViewModels.Events
             }
 
             IsBusy = IsRefreshing = false;
+
+            await GetSalariesAsync();
+        }
+
+        async Task GetSalariesAsync()
+        {
+            try
+            {
+                var salaryApi = RestService.For<ISalaryApi>(httpClient);
+                var salaries = await salaryApi.GetSalaries();
+
+                Events.ForEach(ev =>
+                {
+                    var salary = salaries.FirstOrDefault(s => s.EventId == ev.Id);
+                    if (salary == null)
+                    {
+                        ev.Salary = "Оплата не указана";
+                    }
+                    else
+                    {
+                        ev.Salary = salary.Count.ToString() + " ₽";
+                    }
+                    OnPropertyChanged(nameof(Events));
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                throw;
+            }
         }
 
         async Task NavigateToEvent()

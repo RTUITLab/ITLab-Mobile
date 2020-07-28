@@ -8,16 +8,22 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Forms.Internals;
 
 namespace ITLab_Mobile.ViewModels.Events
 {
     public class OneEventViewModel : BaseViewModel
     {
-        public EventViewExtended Event { get; set; }
+        private EventViewExtended oneEvent;
+        public EventViewExtended Event 
+        {
+            get => oneEvent;
+            set { SetProperty(ref oneEvent, value); }
+        }
+
         public INavigation Navigation { get; set; }
         public Guid EventId { get; set; }
         private readonly HttpClient httpClient;
@@ -81,8 +87,8 @@ namespace ITLab_Mobile.ViewModels.Events
             try
             {
                 var eventApi = RestService.For<IEventApi>(httpClient);
-                Event = await eventApi.GetOneEvent(EventId);
-                OnPropertyChanged(nameof(Event));
+                var eventView = await eventApi.GetOneEvent(EventId);
+                Event = await GetSalaryAsync(eventView);
             }
             catch (Exception ex)
             {
@@ -90,6 +96,68 @@ namespace ITLab_Mobile.ViewModels.Events
             }
 
             IsBusy = false;
+
+        }
+
+        async Task<EventViewExtended> GetSalaryAsync(EventViewExtended eventView)
+        {
+            try
+            {
+                var salaryApi = RestService.For<ISalaryApi>(httpClient);
+                var salaryRaw = await salaryApi.GetOneSalary(EventId);
+
+                if (salaryRaw.IsSuccessStatusCode)
+                {
+                    var salary = salaryRaw.Content;
+                    eventView.Salary = salary.Count.ToString() + " ₽";
+
+                    eventView.ShiftsGrouped.ForEach(shift =>
+                    {
+                        foreach (var place in shift)
+                        {
+                            var salaryPlace = salary.PlaceSalaries.FirstOrDefault(pl => pl.PlaceId == place.Id);
+                            if (salaryPlace == null)
+                            {
+                                place.Salary = "Оплата не указана";
+                            }
+                            else
+                            {
+                                place.Salary = salaryPlace.Count.ToString() + " ₽";
+                            }
+                        }
+
+                        var salaryShift = salary.ShiftSalaries.FirstOrDefault(sh => sh.ShiftId == shift.Id);
+                        if (salaryShift == null)
+                        {
+                            shift.Salary = "Оплата не указана";
+                        }
+                        else
+                        {
+                            shift.Salary = salaryShift.Count.ToString() + " ₽";
+                        }
+                    });
+                }
+                else
+                {
+                    eventView.Salary = "Оплата не указана";
+
+                    eventView.ShiftsGrouped.ForEach(shift =>
+                    {
+                        foreach (var place in shift)
+                        {
+                            place.Salary = "Оплата не указана";
+                        }
+                        shift.Salary = "Оплата не указана";
+                    });
+                }
+                return eventView;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+
+            return null;
         }
     }
 }

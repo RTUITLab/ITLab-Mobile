@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ITLab_Mobile.Views.Profile.ProfilePage"
+             Title="{Binding Title}">
+
+    <RefreshView IsRefreshing="{Binding IsRefreshing}"
+                 Command="{Binding RefreshCommand}">
+        <ScrollView>
+            <StackLayout>
+                <Label Text="{Binding User.Email}"
+                       TextColor="#007bff"
+                       StyleClass="LabelStyle"
+                       FontAttributes="Bold"
+                       FontSize="Title"/>
+                <BoxView BackgroundColor="LightGray"
+                         HeightRequest="1"
+                         WidthRequest="250"
+                         Margin="5,3,5,10"/>
+                <Label Text="Фамилия"
+                       StyleClass="LabelStyle"/>
+                <Entry Text="{Binding User.LastName}"/>
+                <Label Text="Имя"
+                       StyleClass="LabelStyle"/>
+                <Entry Text="{Binding User.FirstName}"/>
+                <Label Text="Отчество"
+                       StyleClass="LabelStyle"/>
+                <Entry Text="{Binding User.MiddleName}"/>
+                <Label Text="Номер телефона"
+                       StyleClass="LabelStyle"/>
+                <Entry Text="{Binding User.PhoneNumber}"/>
+
+                <Label Text="Параметры пользователя"
+                       StyleClass="LabelStylye"/>
+                <StackLayout Padding="0,0,0,0" Margin="0,0,0,0"
+                             BindableLayout.ItemsSource="{Binding User.Properties}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <Grid Padding="0,0,0,0" Margin="0,0,0,0"
+                                      ColumnSpacing="3">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Text="{Binding UserPropertyType.Title}"
+                                           StyleClass="LabelStyle"
+                                           Grid.Row="0"
+                                           Grid.Column="0"/>
+                                    <Label Text="{Binding Value}"
+                                           StyleClass="LabelStyle"
+                                           FontAttributes="Bold"
+                                           Grid.Row="0"
+                                           Grid.Column="1"/>
+                                    <Label Text="{Binding Status}"
+                                           StyleClass="LabelStyle"
+                                           FontSize="Small"
+                                           FontAttributes="Italic"
+                                           VerticalTextAlignment="End"
+                                           Grid.Row="0"
+                                           Grid.Column="2"/>
+                                </Grid>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+
+                <Button Text="Сохранить"
+                        StyleClass="ButtonSaveStyle"
+                        Command="{Binding SaveCommand}"/>
+
+                <Label Text="Оборудование"
+                       StyleClass="LabelStlye"
+                       FontSize="Title"
+                       FontAttributes="Bold"/>
+                <BoxView BackgroundColor="LightGray"
+                         HeightRequest="1"
+                         WidthRequest="250"
+                         Margin="7,2,7,5"/>
+                <StackLayout Padding="0,0,0,0" Margin="0,0,0,0"
+                             BindableLayout.ItemsSource="{Binding Equipments}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Frame HasShadow="True"
+                                   BorderColor="#007bff"
+                                   Margin="0,4,0,4">
+                                <StackLayout>
+                                    <Label Text="{Binding EquipmentType.Title}"
+                                           StyleClass="LabelStyle"
+                                           FontAttributes="Bold"/>
+                                    <Label Text="{Binding SerialNumber}"
+                                           StyleClass="LabelStyle"
+                                           FontSize="Small"
+                                           FontAttributes="Italic"/>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+                
+                
+                <Button Text="Выйти"
+                        StyleClass="ButtonExitStyle"
+                        Command="{Binding LogoutCommand}"/>
+            </StackLayout>
+        </ScrollView>
+    </RefreshView>
+</ContentPage>

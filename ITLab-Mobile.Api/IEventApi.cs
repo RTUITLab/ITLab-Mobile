@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using ITLab_Mobile.Api.Models.Extensions.Events;
 using Models.PublicAPI.Responses.Event;
+using EventTypeView = ITLab_Mobile.Api.Models.Event.EventType.EventTypeView;
+using ITLab_Mobile.Api.Models.Event;
 
 namespace ITLab_Mobile.Api
 {
@@ -21,5 +23,11 @@ namespace ITLab_Mobile.Api
 
         [Post("/api/Event/wish/{placeId}/{roleId}")]
         Task<ApiResponse<string>> SendWishAsync(Guid placeId, Guid roleId);
+
+        [Get("/api/EventType")]
+        Task<List<EventTypeView>> GetEventTypes(string match);
+
+        [Post("/api/Event")]
+        Task<EventViewCreated> CreateEvent([Body] EventCreateRequest createRequest);
     }
 }

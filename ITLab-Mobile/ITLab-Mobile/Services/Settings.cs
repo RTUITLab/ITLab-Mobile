@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
+using System;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
@@ -73,6 +74,32 @@ namespace ITLab_Mobile.Services
             }
         }
 
+        private const string IdentityTokenKey = "identity_token_key";
+        public static string IdentityToken
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault(IdentityTokenKey, SettingsDefault);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue(IdentityTokenKey, value);
+            }
+        }
+
+        private const string CurrentUserIdKey = "current_user_id_key";
+        public static Guid CurrentUserId
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault(CurrentUserIdKey, Guid.Empty);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue(CurrentUserIdKey, value);
+            }
+        }
+
         private static string GetOptionFromAppsettings(string optionName)
         {
             var assembly = typeof(Settings).GetTypeInfo().Assembly;
@@ -111,6 +138,7 @@ namespace ITLab_Mobile.Services
                     ClientSecret = identityOptions.ClientSecret,
                     Scope = identityOptions.Scope,
                     RedirectUri = identityOptions.RedirectUri,
+                    PostLogoutRedirectUri = identityOptions.PostLogoutRedirectUri,
 
                     ResponseMode = OidcClientOptions.AuthorizeResponseMode.Redirect,
                     Flow = OidcClientOptions.AuthenticationFlow.Hybrid,
@@ -180,7 +208,7 @@ namespace ITLab_Mobile.Services
             }
         }
 
-        public static ResourceDictionary GurrentTheme
+        public static ResourceDictionary CurrentTheme
         {
             get
             {

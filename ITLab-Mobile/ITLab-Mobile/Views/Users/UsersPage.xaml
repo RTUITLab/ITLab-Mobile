@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ITLab_Mobile.Views.Users.UsersPage"
+             Title="{Binding Title}">
+    <RefreshView IsRefreshing="{Binding IsRefreshing}"
+                 Command="{Binding RefreshCommand}">
+        <StackLayout>
+            <Entry Placeholder="Поиск.."
+                   Text="{Binding SearchMatch}"
+                   IsSpellCheckEnabled="True"
+                   IsTextPredictionEnabled="True"
+                   TextChanged="Search_Entry_TextChanged"/>
+            <CollectionView ItemsSource="{Binding Users}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <ContentView>
+                            <Frame HasShadow="True"
+                                   BorderColor="#007bff"
+                                   Margin="0,4,0,4">
+                                <StackLayout>
+                                    <Grid Padding="0,0,0,0" Margin="0,0,0,0"
+                                          ColumnSpacing="2" RowSpacing="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Label Text="{Binding FirstName}"
+                                               StyleClass="LabelStyle"
+                                               Grid.Row="0" Grid.Column="0"/>
+                                        <Label Text="{Binding LastName}"
+                                               StyleClass="LabelStyle"
+                                               Grid.Row="0" Grid.Column="1"/>
+                                    </Grid>
+                                    <Label Text="{Binding MiddleName}"
+                                           IsVisible="{Binding IsMiddleNameSet}"
+                                           StyleClass="LabelStyle"/>
+                                    <Label Text="{Binding PhoneNumber}"
+                                           StyleClass="LabelStyle"/>
+                                    <Label Text="{Binding Email}"
+                                           StyleClass="LabelStyle"/>
+                                </StackLayout>
+                            </Frame>
+                        </ContentView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <StackLayout>
+                        <Label Text="По вашему запросу ничего не найдено" StyleClass="LabelStyle"
+                               HorizontalOptions="Center"/>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </StackLayout>
+    </RefreshView>
+</ContentPage>
