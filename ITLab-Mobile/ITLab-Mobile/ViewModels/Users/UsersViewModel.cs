@@ -1,6 +1,7 @@
 ﻿using ITLab_Mobile.Api;
 using ITLab_Mobile.Api.Models.Extensions.User;
 using ITLab_Mobile.Services;
+using Plugin.Messaging;
 using Refit;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Xamarin.Forms.Xaml;
 
 namespace ITLab_Mobile.ViewModels.Users
@@ -40,6 +42,10 @@ namespace ITLab_Mobile.ViewModels.Users
             set { SetProperty(ref searchMatch, value); }
         }
 
+        private readonly IPhoneCallTask phoneDialer;
+        private readonly ISmsTask smsMessanger;
+        private readonly IEmailTask emailMessanger;
+
         private readonly HttpClient httpClient;
         public UsersViewModel()
         {
@@ -48,6 +54,10 @@ namespace ITLab_Mobile.ViewModels.Users
             httpClient = App.ServiceProvider.GetService<IHttpClientFactory>().CreateClient(Settings.HttpClientName);
 
             RefreshCommand = new Command(async () => await GetUsersAsync());
+
+            phoneDialer = CrossMessaging.Current.PhoneDialer;
+            smsMessanger = CrossMessaging.Current.SmsMessenger;
+            emailMessanger = CrossMessaging.Current.EmailMessenger;
 
             GetUsersAsync();
         }
@@ -62,12 +72,14 @@ namespace ITLab_Mobile.ViewModels.Users
             try
             {
                 var userApi = RestService.For<IUserApi>(httpClient);
-                //Users.Clear();
-                //foreach (var user in await userApi.GetUsers(SearchMatch, 10))
-                //{
-                //    Users.Add(user);
-                //}
+
                 var users = await userApi.GetUsers(SearchMatch, 10);
+
+                users.ForEach(user => user.AddToContacts = new Command(async (u) => await AddToContactsAsync(u as UserViewExtended)));
+                users.ForEach(user => user.Call = new Command(async (u) => await CallAsync(u as UserViewExtended)));
+                users.ForEach(user => user.SendMessage = new Command(async (u) => await SendMessageAsync(u as UserViewExtended)));
+                users.ForEach(user => user.SendEmail = new Command(async (u) => await SendEmailAsync(u as UserViewExtended)));
+
                 Users = new ObservableCollection<UserViewExtended>(users);
             }
             catch (Exception ex)
@@ -76,6 +88,35 @@ namespace ITLab_Mobile.ViewModels.Users
             }
 
             IsBusy = IsRefreshing = false;
+        }
+
+        async Task AddToContactsAsync(UserViewExtended user)
+        {
+            DependencyService.Get<IContact>()?.SaveContacts(user.FirstName, user.MiddleName, user.LastName, user.Email, user.PhoneNumber);
+        }
+
+        async Task CallAsync(UserViewExtended user)
+        {
+            if (phoneDialer.CanMakePhoneCall)
+            {
+                phoneDialer.MakePhoneCall(user.PhoneNumber);
+            }
+        }
+
+        async Task SendMessageAsync(UserViewExtended user)
+        {
+            if (smsMessanger.CanSendSms)
+            {
+                smsMessanger.SendSms(user.PhoneNumber);
+            }
+        }
+
+        async Task SendEmailAsync(UserViewExtended user)
+        {
+            if (emailMessanger.CanSendEmail)
+            {
+                emailMessanger.SendEmail(to: user.Email);
+            }
         }
     }
 }
