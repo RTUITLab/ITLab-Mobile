@@ -45,6 +45,18 @@
                                            StyleClass="LabelStyle"/>
                                     <Label Text="{Binding Email}"
                                            StyleClass="LabelStyle"/>
+                                    <Button Text="Добавить в контакты"
+                                            Command="{Binding AddToContacts}"
+                                            CommandParameter="{Binding .}"/>
+                                    <Button Text="Позвонить"
+                                            Command="{Binding Call}"
+                                            CommandParameter="{Binding .}"/>
+                                    <Button Text="Отправить смс"
+                                            Command="{Binding SendMessage}"
+                                            CommandParameter="{Binding .}"/>
+                                    <Button Text="Отправить письмо"
+                                            Command="{Binding SendEmail}"
+                                            CommandParameter="{Binding .}"/>
                                 </StackLayout>
                             </Frame>
                         </ContentView>
