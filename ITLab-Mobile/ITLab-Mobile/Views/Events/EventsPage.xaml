@@ -8,7 +8,8 @@
              
              xmlns:converters="clr-namespace:ITLab_Mobile.Services.Helpers.Converters"
              
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             StyleClass="ContentPageStyle">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:InverseBoolConverter x:Key="inverseBoolConverter"/>
@@ -16,26 +17,30 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <RefreshView IsRefreshing="{Binding IsRefreshing}"
-                     Command="{Binding EventCommand}">
+                     Command="{Binding EventCommand}"
+                     StyleClass="RefreshViewStyle">
             <CollectionView x:Name="collectionEvents"
                             ItemsSource="{Binding Events, Mode=OneWay}"
                             SelectionMode="Single"
                             SelectedItem="{Binding SelectedEvent, Mode=TwoWay}"
-                            Header="{Binding .}">
+                            Header="{Binding .}"
+                            StyleClass="CollectionViewStyle">
                 <CollectionView.HeaderTemplate>
                     <DataTemplate>
                         <Button Text="Создать событие"
-                                Command="{Binding CreateEventCommand}"/>
+                                Command="{Binding CreateEventCommand}"
+                                StyleClass="ButtonStyle"/>
                     </DataTemplate>
                 </CollectionView.HeaderTemplate>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <ContentView>
+                        <ContentView StyleClass="ContentViewStyle">
                             <Frame HasShadow="True"
                                    BorderColor="{Binding BorderColor}"
-                                   Margin="0,4,0,4">
-                                <StackLayout>
-                                    <Grid>
+                                   Margin="0,4,0,4"
+                                   StyleClass="FrameStyle">
+                                <StackLayout StyleClass="StackLayoutStyle">
+                                    <Grid StyleClass="GridStyle">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
@@ -84,7 +89,8 @@
                                            StyleClass="LabelStyle"
                                            FontSize="Micro"/>
                                     <ProgressBar Progress="{Binding ProgressToBar}"
-                                                 ProgressColor="{Binding BorderColor}"/>
+                                                 ProgressColor="{Binding BorderColor}"
+                                                 StyleClass="ProgressBarStyle"/>
                                     <Label Text="Длительность:"
                                            StyleClass="LabelStyle"
                                            FontSize="Micro"/>
@@ -96,7 +102,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
                 <CollectionView.EmptyView>
-                    <StackLayout>
+                    <StackLayout StyleClass="StackLayoutStyle">
                         <Label Text="No data has been loaded" StyleClass="LabelStyle"/>
                     </StackLayout>
                 </CollectionView.EmptyView>

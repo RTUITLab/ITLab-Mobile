@@ -5,12 +5,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="ITLab_Mobile.Views.Profile.ProfilePage"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             StyleClass="ContentPageStyle">
 
     <RefreshView IsRefreshing="{Binding IsRefreshing}"
-                 Command="{Binding RefreshCommand}">
-        <ScrollView>
-            <StackLayout>
+                 Command="{Binding RefreshCommand}"
+                 StyleClass="RefreshStyle">
+        <ScrollView StyleClass="ScrollViewStyle">
+            <StackLayout StyleClass="StackLayoutStyle">
                 <Label Text="{Binding User.Email}"
                        TextColor="#007bff"
                        StyleClass="LabelStyle"
@@ -22,26 +24,33 @@
                          Margin="5,3,5,10"/>
                 <Label Text="Фамилия"
                        StyleClass="LabelStyle"/>
-                <Entry Text="{Binding User.LastName}"/>
+                <Entry Text="{Binding User.LastName}"
+                       Placeholder="Фамилии нет"
+                       StyleClass="EntryStyle"/>
                 <Label Text="Имя"
                        StyleClass="LabelStyle"/>
-                <Entry Text="{Binding User.FirstName}"/>
+                <Entry Text="{Binding User.FirstName}"
+                       Placeholder="Имени нет"
+                       StyleClass="EntryStyle"/>
                 <Label Text="Отчество"
                        StyleClass="LabelStyle"/>
-                <Entry Text="{Binding User.MiddleName}"/>
+                <Entry Text="{Binding User.MiddleName}"
+                       Placeholder="Отчества нет"
+                       StyleClass="EntryStyle"/>
                 <Label Text="Номер телефона"
                        StyleClass="LabelStyle"/>
-                <Entry Text="{Binding User.PhoneNumber}"/>
+                <Entry Text="{Binding User.PhoneNumber}" StyleClass="EntryStyle"/>
 
                 <Label Text="Параметры пользователя"
-                       StyleClass="LabelStylye"/>
+                       StyleClass="LabelStyle"/>
                 <StackLayout Padding="0,0,0,0" Margin="0,0,0,0"
-                             BindableLayout.ItemsSource="{Binding User.Properties}">
+                             BindableLayout.ItemsSource="{Binding User.Properties}"
+                             StyleClass="StackLayoutStyle">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout>
+                            <StackLayout StyleClass="StackLayoutStyle">
                                 <Grid Padding="0,0,0,0" Margin="0,0,0,0"
-                                      ColumnSpacing="3">
+                                      ColumnSpacing="3" StyleClass="GridStyle">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
@@ -78,7 +87,7 @@
                         Command="{Binding SaveCommand}"/>
 
                 <Label Text="Оборудование"
-                       StyleClass="LabelStlye"
+                       StyleClass="LabelStyle"
                        FontSize="Title"
                        FontAttributes="Bold"/>
                 <BoxView BackgroundColor="LightGray"
@@ -86,13 +95,15 @@
                          WidthRequest="250"
                          Margin="7,2,7,5"/>
                 <StackLayout Padding="0,0,0,0" Margin="0,0,0,0"
-                             BindableLayout.ItemsSource="{Binding Equipments}">
+                             BindableLayout.ItemsSource="{Binding Equipments}"
+                             StyleClass="StackLayoutStyle">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <Frame HasShadow="True"
                                    BorderColor="#007bff"
-                                   Margin="0,4,0,4">
-                                <StackLayout>
+                                   Margin="0,4,0,4"
+                                   StyleClass="FrameStyle">
+                                <StackLayout StyleClass="StackLayoutStyle">
                                     <Label Text="{Binding EquipmentType.Title}"
                                            StyleClass="LabelStyle"
                                            FontAttributes="Bold"/>

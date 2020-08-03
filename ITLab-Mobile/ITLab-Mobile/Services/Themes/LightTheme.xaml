@@ -5,5 +5,130 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="ITLab_Mobile.Services.Themes.LightTheme">
+
+    <Style TargetType="TabbedPage" Class="TabbedPageStyle">
+        <Setter Property="BackgroundColor" Value="White"/>
+        <Setter Property="BarBackgroundColor" Value="White"/>
+        <Setter Property="BarTextColor" Value="Black"/>
+    </Style>
+
+    <Style TargetType="ContentPage" Class="ContentPageStyle">
+        <Setter Property="BackgroundColor" Value="White"/>
+    </Style>
+
+    <Style TargetType="RefreshView" Class="RefreshViewStyle">
+        <Setter Property="BackgroundColor" Value="White"/>
+    </Style>
+
+    <Style TargetType="ScrollView" Class="ScrollViewStyle">
+        <Setter Property="BackgroundColor" Value="White"/>
+    </Style>
     
+    <Style TargetType="CollectionView" Class="CollectionViewStyle">
+        <Setter Property="BackgroundColor" Value="White"/>
+    </Style>
+
+    <Style TargetType="ContentView" Class="ContentViewStyle">
+        <Setter Property="BackgroundColor" Value="White"/>
+    </Style>
+
+    <Style TargetType="Frame" Class="FrameStyle">
+        <Setter Property="BackgroundColor" Value="White"/>
+    </Style>
+
+    <Style TargetType="AbsoluteLayout" Class="AbsoluteLayoutStyle">
+        <Setter Property="BackgroundColor" Value="White"/>
+    </Style>
+    
+    <Style TargetType="StackLayout" Class="StackLayoutStyle">
+        <Setter Property="BackgroundColor" Value="White"/>
+    </Style>
+
+    <Style TargetType="Grid" Class="GridClass">
+        <Setter Property="BackgroundColor" Value="White"/>
+    </Style>
+    
+    <Style TargetType="Button" Class="ButtonStyle">
+        <Setter Property="BackgroundColor" Value="#c3c3c3"/>
+        <Setter Property="TextColor" Value="#1e1e1e"/>
+    </Style>
+
+    <Style TargetType="RadioButton" Class="RadioButtonStyle">
+        <Setter Property="BackgroundColor" Value="White"/>
+        <Setter Property="TextColor" Value="#1e1e1e"/>
+    </Style>
+
+    <Style TargetType="Label" Class="LabelStyle">
+        <Setter Property="BackgroundColor" Value="White"/>
+        <Setter Property="TextColor" Value="#1e1e1e"/>
+    </Style>
+
+    <Style TargetType="Entry" Class="EntryStyle">
+        <Setter Property="BackgroundColor" Value="#White"/>
+        <Setter Property="TextColor" Value="#1e1e1e"/>
+        <Setter Property="PlaceholderColor" Value="#a8a8a8"/>
+    </Style>
+    
+    <Style TargetType="ProgressBar" Class="ProgressBarStyle">
+        <Setter Property="BackgroundColor" Value="#c3c3c3"/>
+    </Style>
+
+    <Style TargetType="ActivityIndicator" Class="ActivityIndicatorStyle">
+        <Setter Property="BackgroundColor" Value="White" />
+        <Setter Property="Color" Value="#007bff"/>
+    </Style>
+
+    <Style TargetType="Frame"
+           Class="FramePlaceHeaderStyle">
+        <Setter Property="BackgroundColor"
+                Value="#f1f1f1"/>
+        <Setter Property="BorderColor"
+                Value="#e2e2e2"/>
+        <Setter Property="HasShadow"
+                Value="True"/>
+    </Style>
+    
+    <Style TargetType="Frame"
+           Class="FramePlaceUserStyle">
+        <Setter Property="BackgroundColor"
+                Value="#e2e2e2"/>
+        <Setter Property="BorderColor"
+                Value="#d3d3d3"/>
+        <Setter Property="HasShadow"
+                Value="True"/>
+    </Style>
+    
+    <Style TargetType="Button"
+           Class="ButtonWishStyle">
+        <Setter Property="BackgroundColor"
+                Value="Transparent"/>
+
+        <Setter Property="TextColor"
+                Value="#1e1e1e"/>
+        <Setter Property="FontSize"
+                Value="Small"/>
+        <Setter Property="FontAttributes"
+                Value="None"/>
+
+        <Setter Property="BorderColor"
+                Value="#1e1e1e"/>
+        <Setter Property="BorderWidth"
+                Value="1"/>
+    </Style>
+
+    <Style TargetType="Button"
+           Class="ButtonSaveStyle">
+        <Setter Property="BackgroundColor"
+                Value="#28a745"/>
+        <Setter Property="TextColor"
+                Value="#fff"/>
+    </Style>
+
+    <Style TargetType="Button"
+           Class="ButtonExitStyle">
+        <Setter Property="BackgroundColor"
+                Value="#fb3838"/>
+        <Setter Property="TextColor"
+                Value="#fff"/>
+    </Style>
 </ResourceDictionary>

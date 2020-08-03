@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="ITLab_Mobile.Views.Setting.SettingsPage"
+             Title="{Binding Title}"
+             
+             xmlns:converters="clr-namespace:ITLab_Mobile.Services.Helpers.Converters"
+             StyleClass="ContentPageStyle">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="inverseBoolConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <StackLayout StyleClass="StackLayoutStyle">
+        <Label Text="Интерфейс"
+               HorizontalOptions="Center"
+               StyleClass="LabelStyle"
+               FontSize="Title"/>
+        <BoxView BackgroundColor="LightGray"
+                 HeightRequest="1"/>
+        <Grid ColumnSpacing="4" StyleClass="GridStyle">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="Тема:"
+                   VerticalTextAlignment="Center"
+                   StyleClass="LabelStyle"
+                   Grid.Row="0" Grid.Column="0"/>
+            <RadioButton Text="Светлая"
+                         GroupName="theme"
+                         Command="{Binding ChangeThemeCommand}"
+                         IsChecked="{Binding IsDarkTheme, Converter={StaticResource inverseBoolConverter}}"
+                         Grid.Row="0" Grid.Column="1"
+                         StyleClass="RadioButtonStyle"/>
+            <RadioButton Text="Темная"
+                         GroupName="theme"
+                         Command="{Binding ChangeThemeCommand}"
+                         IsChecked="{Binding IsDarkTheme}"
+                         Grid.Row="0" Grid.Column="2"
+                         StyleClass="RadioButtonStyle"/>
+        </Grid>
+    </StackLayout>
+</ContentPage>

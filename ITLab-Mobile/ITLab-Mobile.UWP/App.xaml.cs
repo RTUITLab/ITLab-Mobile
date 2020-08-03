@@ -52,6 +52,7 @@ namespace ITLab_Mobile.UWP
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
+                Xamarin.Forms.Forms.SetFlags("RadioButton_Experimental");
                 Xamarin.Forms.Forms.Init(e);
                 
                 Xamarin.Forms.DependencyService.Register<WabBrowser>();

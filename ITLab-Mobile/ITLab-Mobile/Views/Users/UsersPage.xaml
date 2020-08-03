@@ -5,25 +5,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="ITLab_Mobile.Views.Users.UsersPage"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             StyleClass="ContentPageStyle">
     <RefreshView IsRefreshing="{Binding IsRefreshing}"
-                 Command="{Binding RefreshCommand}">
-        <StackLayout>
+                 Command="{Binding RefreshCommand}"
+                 StyleClass="RefreshViewStyle">
+        <StackLayout StyleClass="StackLayoutStyle">
             <Entry Placeholder="Поиск.."
                    Text="{Binding SearchMatch}"
-                   IsSpellCheckEnabled="True"
-                   IsTextPredictionEnabled="True"
-                   TextChanged="Search_Entry_TextChanged"/>
-            <CollectionView ItemsSource="{Binding Users}">
+                   TextChanged="Search_Entry_TextChanged"
+                   StyleClass="EntryStyle"/>
+            <CollectionView ItemsSource="{Binding Users}" StyleClass="CollectionViewStyle">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <ContentView>
+                        <ContentView StyleClass="ContentViewStyle">
                             <Frame HasShadow="True"
                                    BorderColor="#007bff"
-                                   Margin="0,4,0,4">
-                                <StackLayout>
+                                   Margin="0,4,0,4"
+                                   StyleClass="FrameStyle">
+                                <StackLayout StyleClass="StackLayoutStyle">
                                     <Grid Padding="0,0,0,0" Margin="0,0,0,0"
-                                          ColumnSpacing="2" RowSpacing="1">
+                                          ColumnSpacing="2" RowSpacing="1"
+                                          StyleClass="GridStyle">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="Auto"/>
@@ -47,23 +50,27 @@
                                            StyleClass="LabelStyle"/>
                                     <Button Text="Добавить в контакты"
                                             Command="{Binding AddToContacts}"
-                                            CommandParameter="{Binding .}"/>
+                                            CommandParameter="{Binding .}"
+                                            StyleClass="ButtonStyle"/>
                                     <Button Text="Позвонить"
                                             Command="{Binding Call}"
-                                            CommandParameter="{Binding .}"/>
+                                            CommandParameter="{Binding .}"
+                                            StyleClass="ButtonStyle"/>
                                     <Button Text="Отправить смс"
                                             Command="{Binding SendMessage}"
-                                            CommandParameter="{Binding .}"/>
+                                            CommandParameter="{Binding .}"
+                                            StyleClass="ButtonStyle"/>
                                     <Button Text="Отправить письмо"
                                             Command="{Binding SendEmail}"
-                                            CommandParameter="{Binding .}"/>
+                                            CommandParameter="{Binding .}"
+                                            StyleClass="ButtonStyle"/>
                                 </StackLayout>
                             </Frame>
                         </ContentView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
                 <CollectionView.EmptyView>
-                    <StackLayout>
+                    <StackLayout StyleClass="StackLayoutStyle">
                         <Label Text="По вашему запросу ничего не найдено" StyleClass="LabelStyle"
                                HorizontalOptions="Center"/>
                     </StackLayout>

@@ -7,6 +7,7 @@
             xmlns:eventPages="clr-namespace:ITLab_Mobile.Views.Events"
             xmlns:profilePages="clr-namespace:ITLab_Mobile.Views.Profile"
             xmlns:userPages="clr-namespace:ITLab_Mobile.Views.Users"
+            xmlns:settingPages="clr-namespace:ITLab_Mobile.Views.Setting"
             
             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
             android:TabbedPage.IsSwipePagingEnabled="False"
@@ -16,13 +17,15 @@
             NavigationPage.HasNavigationBar="False"
             x:Class="ITLab_Mobile.Views.MainPage"
             
-            Padding="5,5,5,0">
+            Padding="5,5,5,0"
+            StyleClass="TabbedPageStyle">
 
 
     <TabbedPage.Children>
         <eventPages:EventsPage />
         <userPages:UsersPage />
         <profilePages:ProfilePage />
+        <settingPages:SettingsPage />
     </TabbedPage.Children>
 
 </TabbedPage>

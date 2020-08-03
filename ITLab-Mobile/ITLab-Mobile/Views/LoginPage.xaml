@@ -5,17 +5,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="ITLab_Mobile.Views.LoginPage"
+             
              Padding="10,40,10,0"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             StyleClass="ContentPageStyle">
 
-    <StackLayout>
+    <StackLayout StyleClass="StackLayoutStyle">
         <Button x:Name="btnLogin"
                 Text="Нажмите, чтобы войти"
-                WidthRequest="250"
+                StyleClass="ButtonStyle"
                 Command="{Binding LoginCommand}"/>
         <ActivityIndicator x:Name="indicator"
-                           Color="Blue"
-                           IsRunning="{Binding IsBusy, Mode=OneWay}"/>
+                           IsRunning="{Binding IsBusy, Mode=OneWay}"
+                           StyleClass="ActivityIndicatorStyle"/>
     </StackLayout>
 
 </ContentPage>

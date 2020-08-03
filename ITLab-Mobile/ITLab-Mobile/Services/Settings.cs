@@ -166,7 +166,7 @@ namespace ITLab_Mobile.Services
             }
         }
 
-        private static bool IsDarkTheme
+        public static bool IsDarkTheme
         {
             get
             {
@@ -206,6 +206,9 @@ namespace ITLab_Mobile.Services
                     Theme = ThemeDark;
                 }
             }
+
+            Application.Current.Resources.MergedDictionaries.Clear();
+            Application.Current.Resources.MergedDictionaries.Add(Settings.CurrentTheme);
         }
 
         public static ResourceDictionary CurrentTheme

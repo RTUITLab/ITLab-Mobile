@@ -19,13 +19,25 @@ namespace ITLab_Mobile
             }
             else
             {
-                MainPage = new NavigationPage(new MainPage());
+
+                var mainPage = new MainPage();
+                //mainPage.BarBackgroundColor = Color.FromHex("#1a1a1a");
+                //mainPage.BarTextColor = Color.FromHex("#d6d6d6");
+                //mainPage.SelectedTabColor = Color.FromHex("#e2e2e2");
+                //mainPage.UnselectedTabColor = Color.FromHex("#d6d6d6");
+
+                var navPage = new NavigationPage(mainPage);
+                //navPage.BarBackgroundColor = Color.FromHex("#1a1a1a");
+                //navPage.BarTextColor = Color.FromHex("#d6d6d6");
+                //navPage.BackgroundColor = Color.FromHex("#1a1a1a");
+
+                MainPage = navPage;
             }
         }
 
         protected override void OnStart()
         {
-            Current.Resources = Settings.CurrentTheme;
+            Current.Resources.MergedDictionaries.Add(Settings.CurrentTheme);
         }
 
         protected override void OnSleep()

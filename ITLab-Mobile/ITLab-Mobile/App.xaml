@@ -9,12 +9,36 @@
     <Application.Resources>
         <ResourceDictionary>
             <!--Global Styles-->
-            <Color x:Key="NavigationPrimary">#2196F3</Color>
+            <!--<Color x:Key="NavigationPrimary">#2196F3</Color>
             <Style TargetType="NavigationPage">
                 <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
                 <Setter Property="BarTextColor" Value="White" />
+            </Style>-->
+
+            <Style TargetType="RefreshView">
+                <Setter Property="RefreshColor" Value="#007bff"/>
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="Body"/>
+            </Style>
+
+            <Style TargetType="Entry">
+                <Setter Property="IsSpellCheckEnabled" Value="True"/>
+                <Setter Property="IsTextPredictionEnabled" Value="True"/>
+                <Setter Property="ClearButtonVisibility" Value="WhileEditing"/>
+            </Style>
+            
+            <Style TargetType="Button">
+                <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="Padding" Value="0,0,0,0"/>
+                <Setter Property="HeightRequest" Value="30"/>
+            </Style>
+
+            <Style TargetType="ProgressBar">
+                <Setter Property="HeightRequest" Value="4"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>
-    
+
 </Application>

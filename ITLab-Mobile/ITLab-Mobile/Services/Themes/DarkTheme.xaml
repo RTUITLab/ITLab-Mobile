@@ -5,76 +5,130 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="ITLab_Mobile.Services.Themes.DarkTheme">
-    <Style TargetType="Label"
-           Class="LabelStyle">
-        <Setter Property="FontSize"
-                Value="Body"/>
+
+    <Style TargetType="TabbedPage" Class="TabbedPageStyle">
+        <Setter Property="BackgroundColor" Value="#1a1a1a"/>
+        <Setter Property="BarBackgroundColor" Value="#1a1a1a"/>
+        <Setter Property="BarTextColor" Value="White"/>
     </Style>
+
+    <Style TargetType="ContentPage" Class="ContentPageStyle">
+        <Setter Property="BackgroundColor" Value="#1a1a1a"/>
+    </Style>
+
+    <Style TargetType="RefreshView" Class="RefreshViewStyle">
+        <Setter Property="BackgroundColor" Value="#1a1a1a"/>
+    </Style>
+
+    <Style TargetType="ScrollView" Class="ScrollViewStyle">
+        <Setter Property="BackgroundColor" Value="#1a1a1a"/>
+    </Style>
+    
+    <Style TargetType="CollectionView" Class="CollectionViewStyle">
+        <Setter Property="BackgroundColor" Value="#1a1a1a"/>
+    </Style>
+
+    <Style TargetType="ContentView" Class="ContentViewStyle">
+        <Setter Property="BackgroundColor" Value="#1a1a1a"/>
+    </Style>
+
+    <Style TargetType="Frame" Class="FrameStyle">
+        <Setter Property="BackgroundColor" Value="#1a1a1a"/>
+    </Style>
+
+    <Style TargetType="AbsoluteLayout" Class="AbsoluteLayoutStyle">
+        <Setter Property="BackgroundColor" Value="#1a1a1a"/>
+    </Style>
+    
+    <Style TargetType="StackLayout" Class="StackLayoutStyle">
+        <Setter Property="BackgroundColor" Value="#1a1a1a"/>
+    </Style>
+
+    <Style TargetType="Grid" Class="GridClass">
+        <Setter Property="BackgroundColor" Value="#1a1a1a"/>
+    </Style>
+    
+    <Style TargetType="Button" Class="ButtonStyle">
+        <Setter Property="BackgroundColor" Value="#4d4d4d"/>
+        <Setter Property="TextColor" Value="#d6d6d6"/>
+    </Style>
+
+    <Style TargetType="RadioButton" Class="RadioButtonStyle">
+        <Setter Property="BackgroundColor" Value="#1a1a1a"/>
+        <Setter Property="TextColor" Value="#d6d6d6"/>
+    </Style>
+
+    <Style TargetType="Label" Class="LabelStyle">
+        <Setter Property="BackgroundColor" Value="#1a1a1a"/>
+        <Setter Property="TextColor" Value="#d6d6d6"/>
+    </Style>
+
+    <Style TargetType="Entry" Class="EntryStyle">
+        <Setter Property="BackgroundColor" Value="#1a1a1a"/>
+        <Setter Property="TextColor" Value="#d6d6d6"/>
+        <Setter Property="PlaceholderColor" Value="#8a8a8a"/>
+    </Style>
+    
+    <Style TargetType="ProgressBar" Class="ProgressBarStyle">
+        <Setter Property="BackgroundColor" Value="#333333"/>
+    </Style>
+
+    <Style TargetType="ActivityIndicator" Class="ActivityIndicatorStyle">
+        <Setter Property="BackgroundColor" Value="#1a1a1a" />
+        <Setter Property="Color" Value="#007bff"/>
+    </Style>
+    
     <Style TargetType="Frame"
            Class="FramePlaceHeaderStyle">
         <Setter Property="BackgroundColor"
-                Value="#d1d1d1"/>
+                Value="#282828"/>
         <Setter Property="BorderColor"
-                Value="#c1c1c1"/>
+                Value="#373737"/>
         <Setter Property="HasShadow"
                 Value="True"/>
     </Style>
+
     <Style TargetType="Frame"
            Class="FramePlaceUserStyle">
         <Setter Property="BackgroundColor"
-                Value="White"/>
+                Value="#373737"/>
         <Setter Property="BorderColor"
-                Value="#c1c1c1"/>
+                Value="#464646"/>
         <Setter Property="HasShadow"
                 Value="True"/>
     </Style>
+    
     <Style TargetType="Button"
            Class="ButtonWishStyle">
         <Setter Property="BackgroundColor"
                 Value="Transparent"/>
-        <Setter Property="Padding"
-                Value="0,0,0,0"/>
-        
+
         <Setter Property="TextColor"
-                Value="#a1a1a1"/>
+                Value="#d6d6d6"/>
         <Setter Property="FontSize"
                 Value="Small"/>
         <Setter Property="FontAttributes"
                 Value="None"/>
         
         <Setter Property="BorderColor"
-                Value="#a1a1a1"/>
+                Value="#d6d6d6"/>
         <Setter Property="BorderWidth"
                 Value="1"/>
-        <Setter Property="HeightRequest"
-                Value="30"/>
     </Style>
 
     <Style TargetType="Button"
            Class="ButtonSaveStyle">
         <Setter Property="BackgroundColor"
-                Value="#28a745"/>
+                Value="#199137"/>
         <Setter Property="TextColor"
                 Value="#fff"/>
-        <Setter Property="CornerRadius"
-                Value="5"/>
-        <Setter Property="HeightRequest"
-                Value="30"/>
-        <Setter Property="Padding"
-                Value="0,0,0,0"/>
     </Style>
 
     <Style TargetType="Button"
            Class="ButtonExitStyle">
         <Setter Property="BackgroundColor"
-                Value="#fb3838"/>
+                Value="#d22d2d"/>
         <Setter Property="TextColor"
                 Value="#fff"/>
-        <Setter Property="CornerRadius"
-                Value="5"/>
-        <Setter Property="HeightRequest"
-                Value="30"/>
-        <Setter Property="Padding"
-                Value="0,0,0,0"/>
     </Style>
 </ResourceDictionary>
